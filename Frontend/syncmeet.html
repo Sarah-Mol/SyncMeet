@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SyncMeet</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link rel="stylesheet" href="syncmeet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyncMeet</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="syncmeet.css">
 </head>
 <body>
 
@@ -32,67 +32,35 @@
 </nav>
 
 
-<!-- LANDING  -->
+<!-- LANDING -->
 <div class="view active" id="view-landing">
-  <div class="container py-5">
-    <div class="row justify-content-center text-center mb-5">
-      <div class="col-md-6">
-        <h1 class="fw-bold mb-3">¿Cuándo pueden todos? 📅</h1>
-        <p class="text-muted mb-4">SyncMeet te ayuda a encontrar el horario que le queda a todo el equipo sin andar mandando mensajes por WhatsApp.</p>
-        <div class="d-flex justify-content-center gap-2">
-          <button class="btn btn-success px-4" onclick="goTo('register')">Entrar</button>
-          <button class="btn btn-outline-secondary px-4" onclick="goTo('login')">Ya tengo cuenta</button>
-        </div>
-      </div>
+  <div class="container py-5 text-center">
+    <h1 class="fw-bold mb-3">¿Cuándo pueden todos? 📅</h1>
+    <p class="text-muted mb-4">SyncMeet te ayuda a encontrar el horario que le queda a todo el equipo<br>sin andar mandando mensajes por WhatsApp.</p>
+    <div class="d-flex justify-content-center gap-2 mb-5">
+      <button class="btn btn-success px-4" onclick="goTo('register')">Entrar</button>
+      <button class="btn btn-outline-secondary px-4" onclick="goTo('login')">Ya tengo cuenta</button>
     </div>
-
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7">
-        <div class="card p-4">
-          <p class="fw-semibold small mb-3">Ejemplo de cómo se ve 👇 — 5 personas, 3 opciones de horario</p>
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1">
-              <span>Sáb 15 Feb · 14:00 <span class="badge bg-success ms-1" style="font-size:11px">Mejor opción</span></span>
-              <span class="text-success fw-bold">4/5</span>
-            </div>
-            <div class="slot-bar"><div class="slot-bar-fill" style="width:80%"></div></div>
-          </div>
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1">
-              <span>Sáb 15 Feb · 09:00</span><span class="text-muted">2/5</span>
-            </div>
-            <div class="slot-bar"><div class="slot-bar-fill" style="width:40%;background:#adb5bd"></div></div>
-          </div>
-          <div>
-            <div class="d-flex justify-content-between small mb-1">
-              <span>Dom 16 Feb · 10:30</span><span class="text-muted">1/5</span>
-            </div>
-            <div class="slot-bar"><div class="slot-bar-fill" style="width:20%;background:#adb5bd"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row g-3">
-      <div class="col-md-4">
-        <div class="card p-4 h-100">
+    <div class="row g-3 justify-content-center">
+      <div class="col-md-4 d-flex">
+        <div class="card p-3 w-100">
           <i class="bi bi-calendar-range text-success fs-4 mb-2"></i>
           <h6 class="fw-bold">Propón varios horarios</h6>
-          <p class="text-muted small mb-0">El que organiza agrega las fechas posibles y cada quien marca cuándo puede.</p>
+          <p class="text-muted small mb-0">El que organiza agrega las fechas y cada quien marca cuándo puede.</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card p-4 h-100">
+      <div class="col-md-4 d-flex">
+        <div class="card p-3 w-100">
           <i class="bi bi-bar-chart text-warning fs-4 mb-2"></i>
           <h6 class="fw-bold">Ve quién puede cuándo</h6>
-          <p class="text-muted small mb-0">El sistema te muestra qué horario le queda a más gente para que sea más fácil decidir.</p>
+          <p class="text-muted small mb-0">El sistema muestra qué horario le queda a más gente.</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card p-4 h-100">
+      <div class="col-md-4 d-flex">
+        <div class="card p-3 w-100">
           <i class="bi bi-bell text-danger fs-4 mb-2"></i>
           <h6 class="fw-bold">Avisos al instante</h6>
-          <p class="text-muted small mb-0">Todos reciben notificación cuando los invitan, cuando se confirma la reunión o si se cancela.</p>
+          <p class="text-muted small mb-0">Todos reciben notificación cuando se confirma o cancela la reunión.</p>
         </div>
       </div>
     </div>
@@ -104,14 +72,14 @@
 </div>
 
 
-<!-- ══════════════ REGISTER ══════════════ -->
+<!-- REGISTRO -->
 <div class="view" id="view-register">
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-5">
         <div class="card p-4">
           <h4 class="fw-bold mb-1">Crear cuenta</h4>
-          <p class="text-muted small mb-4">Únete a SyncMeet para coordinar reuniones fácilmente.</p>
+          <p class="text-muted small mb-4">Únete a SyncMeet para coordinar reuniones.</p>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Nombre completo</label>
             <input type="text" class="form-control" value="Sarah Moreno León">
@@ -125,7 +93,7 @@
             <input type="password" class="form-control" value="12345678">
           </div>
           <div class="mb-4">
-            <label class="form-label small fw-semibold d-block mb-2">¿Cuál será tu rol?</label>
+            <label class="form-label small fw-semibold d-block mb-2">¿Cuál es tu rol?</label>
             <div class="row g-2">
               <div class="col-6">
                 <div class="role-card selected" id="rc-org" onclick="selectRole('org')">
@@ -136,14 +104,14 @@
               </div>
               <div class="col-6">
                 <div class="role-card" id="rc-part" onclick="selectRole('part')">
-                  <i class="bi bi-people fs-4 d-block mb-1 text-muted" id="part-icon"></i>
+                  <i class="bi bi-people fs-4 d-block mb-1 text-muted"></i>
                   <div class="fw-semibold small">Participante</div>
                   <div class="text-muted" style="font-size:12px">Solo me invitan</div>
                 </div>
               </div>
             </div>
           </div>
-          <button class="btn btn-success w-100" onclick="register()">Crear mi cuenta</button>
+          <button class="btn btn-success w-100" onclick="register()">Crear cuenta</button>
           <p class="text-center text-muted small mt-3 mb-0">¿Ya tienes cuenta? <a href="#" class="text-success text-decoration-none" onclick="goTo('login')">Inicia sesión</a></p>
         </div>
       </div>
@@ -152,16 +120,15 @@
 </div>
 
 
-<!-- ══════════════ LOGIN ══════════════ -->
+<!-- LOGIN -->
 <div class="view" id="view-login">
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-5">
         <div class="card p-4">
           <h4 class="fw-bold mb-1">Iniciar sesión</h4>
-          <p class="text-muted small mb-4">Accede a tu cuenta para gestionar tus reuniones.</p>
           <div class="mb-3">
-            <label class="form-label small fw-semibold">Correo electrónico</label>
+            <label class="form-label small fw-semibold">Correo</label>
             <input type="email" class="form-control" value="sarah.moreno@iteso.mx">
           </div>
           <div class="mb-4">
@@ -179,7 +146,7 @@
 </div>
 
 
-<!-- ══════════════ DASHBOARD ORGANIZADOR ══════════════ -->
+<!-- DASHBOARD ORGANIZADOR -->
 <div class="view" id="view-dashboard">
   <div class="d-flex">
     <div class="sidebar">
@@ -192,32 +159,16 @@
       </nav>
     </div>
     <div class="main-content">
-      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-        <div>
-          <h4 class="fw-bold mb-0">Hola, Sarah 👋</h4>
-          <p class="text-muted small mb-0">Aquí están todas tus reuniones.</p>
-        </div>
-        <button class="btn btn-success" onclick="goTo('create-meeting')"><i class="bi bi-plus me-1"></i>Nueva reunión</button>
-      </div>
-
-      <div class="row g-3 mb-4">
-        <div class="col-6 col-md-3"><div class="card p-3 text-center"><div class="fs-4 fw-bold">5</div><div class="text-muted small">Total</div></div></div>
-        <div class="col-6 col-md-3"><div class="card p-3 text-center"><div class="fs-4 fw-bold text-warning">2</div><div class="text-muted small">Pendientes</div></div></div>
-        <div class="col-6 col-md-3"><div class="card p-3 text-center"><div class="fs-4 fw-bold text-success">2</div><div class="text-muted small">Confirmadas</div></div></div>
-        <div class="col-6 col-md-3"><div class="card p-3 text-center"><div class="fs-4 fw-bold text-danger">1</div><div class="text-muted small">Canceladas</div></div></div>
-      </div>
-
-      <div class="d-flex gap-2 mb-3">
-        <button class="btn btn-sm btn-success" onclick="setTab(this)">Todas</button>
-        <button class="btn btn-sm btn-outline-secondary" onclick="setTab(this)">Pendientes</button>
-        <button class="btn btn-sm btn-outline-secondary" onclick="setTab(this)">Confirmadas</button>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0" id="greeting-org">Hola 👋</h4>
+        <button class="btn btn-success btn-sm" onclick="goTo('create-meeting')"><i class="bi bi-plus me-1"></i>Nueva reunión</button>
       </div>
 
       <div class="meeting-row" onclick="goTo('detail-org')">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Reunión de Proyecto Final</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-people me-1"></i>5 participantes &nbsp;·&nbsp; 3/5 respondieron</div>
+            <div class="text-muted" style="font-size:13px">5 participantes · 3/5 respondieron</div>
           </div>
           <span class="badge bg-warning text-dark">Pendiente</span>
         </div>
@@ -226,7 +177,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Sprint Planning Q2</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-people me-1"></i>4 participantes &nbsp;·&nbsp; 2/4 respondieron</div>
+            <div class="text-muted" style="font-size:13px">4 participantes · 2/4 respondieron</div>
           </div>
           <span class="badge bg-warning text-dark">Pendiente</span>
         </div>
@@ -235,16 +186,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Revisión de Diseño UI</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-calendar-check me-1"></i>Confirmada: Lun 10 Feb, 11:00</div>
-          </div>
-          <span class="badge bg-success">Confirmada</span>
-        </div>
-      </div>
-      <div class="meeting-row" onclick="goTo('detail-confirmed')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Kickoff Proyecto Nuevo</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-calendar-check me-1"></i>Confirmada: Mar 18 Feb, 10:00</div>
+            <div class="text-muted" style="font-size:13px">Confirmada: Lun 10 Feb, 11:00</div>
           </div>
           <span class="badge bg-success">Confirmada</span>
         </div>
@@ -253,7 +195,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Sync semanal equipo</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-x-circle me-1"></i>Cancelada por organizador</div>
+            <div class="text-muted" style="font-size:13px">Cancelada por organizador</div>
           </div>
           <span class="badge bg-secondary">Cancelada</span>
         </div>
@@ -263,7 +205,7 @@
 </div>
 
 
-<!-- ══════════════ DASHBOARD PARTICIPANTE ══════════════ -->
+<!-- DASHBOARD PARTICIPANTE -->
 <div class="view" id="view-dashboard-part">
   <div class="d-flex">
     <div class="sidebar">
@@ -275,24 +217,12 @@
       </nav>
     </div>
     <div class="main-content">
-      <div class="mb-4">
-        <h4 class="fw-bold mb-0">Hola, Emiliano 👋</h4>
-        <p class="text-muted small">Reuniones a las que fuiste invitado.</p>
-      </div>
+      <h4 class="fw-bold mb-4" id="greeting-part">Hola 👋</h4>
       <div class="meeting-row" onclick="goTo('detail-part')">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Reunión de Proyecto Final</div>
-            <div class="text-muted" style="font-size:13px">Organiza: Sarah Moreno &nbsp;·&nbsp; <span class="text-warning fw-semibold">Pendiente tu respuesta</span></div>
-          </div>
-          <span class="badge bg-warning text-dark">Pendiente</span>
-        </div>
-      </div>
-      <div class="meeting-row" onclick="goTo('detail-part')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Sprint Planning Q2</div>
-            <div class="text-muted" style="font-size:13px">Organiza: Sarah Moreno &nbsp;·&nbsp; <span class="text-success fw-semibold">Ya respondiste</span></div>
+            <div class="text-muted" style="font-size:13px">Organiza: Sarah Moreno · <span class="text-warning fw-semibold">Pendiente tu respuesta</span></div>
           </div>
           <span class="badge bg-warning text-dark">Pendiente</span>
         </div>
@@ -301,7 +231,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="fw-semibold small">Revisión de Diseño UI</div>
-            <div class="text-muted" style="font-size:13px"><i class="bi bi-calendar-check me-1"></i>Lun 10 Feb, 11:00</div>
+            <div class="text-muted" style="font-size:13px">Confirmada: Lun 10 Feb, 11:00</div>
           </div>
           <span class="badge bg-success">Confirmada</span>
         </div>
@@ -311,22 +241,20 @@
 </div>
 
 
-<!-- ══════════════ CREAR REUNIÓN ══════════════ -->
+<!-- CREAR REUNIÓN -->
 <div class="view" id="view-create-meeting">
-  <div class="container py-4" style="max-width:660px">
+  <div class="container py-4" style="max-width:620px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard')"><i class="bi bi-arrow-left me-1"></i>Volver</button>
     <div class="card p-4">
       <h5 class="fw-bold mb-4">Nueva reunión</h5>
-
       <div class="mb-3">
-        <label class="form-label small fw-semibold">Título *</label>
+        <label class="form-label small fw-semibold">Título</label>
         <input type="text" class="form-control" value="Reunión de Proyecto Final">
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Descripción <span class="text-muted fw-normal">(opcional)</span></label>
-        <textarea class="form-control" rows="2">Discutir los avances y siguientes pasos del proyecto final.</textarea>
+        <textarea class="form-control" rows="2">Discutir los avances del proyecto final.</textarea>
       </div>
-
       <hr>
       <div class="d-flex justify-content-between align-items-center mb-2">
         <span class="fw-semibold small">Opciones de horario</span>
@@ -343,13 +271,7 @@
           <span class="flex-grow-1">Sábado, 15 Feb 2026 · 02:00 PM</span>
           <button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>
         </div>
-        <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small">
-          <i class="bi bi-clock text-muted"></i>
-          <span class="flex-grow-1">Domingo, 16 Feb 2026 · 10:30 AM</span>
-          <button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>
-        </div>
       </div>
-
       <hr>
       <div class="fw-semibold small mb-2">Participantes</div>
       <div class="d-flex gap-2 mb-2">
@@ -360,10 +282,7 @@
         <span class="chip">ana.garcia@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
         <span class="chip">carlos.ruiz@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
         <span class="chip">jimena.corona@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
-        <span class="chip">emiliano.deltoro@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
-        <span class="chip">luis.mendez@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
       </div>
-
       <div class="d-flex gap-2 mt-4">
         <button class="btn btn-success" onclick="createMeeting()">Crear reunión</button>
         <button class="btn btn-outline-secondary" onclick="goTo('dashboard')">Cancelar</button>
@@ -373,15 +292,14 @@
 </div>
 
 
-<!-- ══════════════ DETALLE ORGANIZADOR (pendiente) ══════════════ -->
+<!-- DETALLE ORG (pendiente) -->
 <div class="view" id="view-detail-org">
-  <div class="container py-4" style="max-width:700px">
+  <div class="container py-4" style="max-width:680px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard')"><i class="bi bi-arrow-left me-1"></i>Mis reuniones</button>
     <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
       <div>
         <h4 class="fw-bold mb-1">Reunión de Proyecto Final</h4>
-        <p class="text-muted small mb-1">Discutir los avances y siguientes pasos del proyecto.</p>
-        <span class="badge bg-warning text-dark">Pendiente</span>
+        <span class="badge bg-warning text-dark">Pendiente · 3/5 respondieron</span>
       </div>
       <div class="d-flex gap-2">
         <button class="btn btn-sm btn-outline-secondary" onclick="goTo('create-meeting')"><i class="bi bi-pencil me-1"></i>Editar</button>
@@ -389,66 +307,33 @@
       </div>
     </div>
 
-    <div class="row g-2 small text-muted mb-4">
-      <div class="col-6"><strong class="d-block text-dark">Organizador</strong>Sarah Moreno León</div>
-      <div class="col-6"><strong class="d-block text-dark">Creada el</strong>11 de febrero de 2026</div>
-      <div class="col-6"><strong class="d-block text-dark">Invitados</strong>Ana G., Carlos R., Jimena C., Emiliano T., Luis M.</div>
-      <div class="col-6"><strong class="d-block text-dark">Respuestas</strong><span class="text-success fw-bold">3</span> de 5</div>
-    </div>
-
-    <h6 class="fw-bold mb-1">Disponibilidad por horario</h6>
-    <p class="text-muted small mb-3">Haz clic en un horario para seleccionarlo y luego confirma la reunión.</p>
+    <p class="text-muted small mb-3">Selecciona un horario y luego confirma la reunión.</p>
 
     <div class="slot-option best" id="s1" onclick="selectSlot('s1')">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="small fw-semibold">
-          Sáb, 15 Feb 2026 · 14:00
-          <span class="badge bg-success ms-2" style="font-size:11px">Mejor opción</span>
-        </div>
-        <span class="text-success small fw-bold">4 / 5</span>
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <span class="small fw-semibold">Sáb, 15 Feb 2026 · 14:00 <span class="badge bg-success ms-1">Mejor opción</span></span>
+        <span class="text-success small fw-bold">4/5</span>
       </div>
-      <div class="slot-bar mb-2"><div class="slot-bar-fill" style="width:80%"></div></div>
-      <div class="d-flex flex-wrap gap-1" style="font-size:12px">
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Ana G. ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Carlos R. ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Jimena C. ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Emiliano T. ✓</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Luis M. ✗</span>
-      </div>
+      <div class="slot-bar"><div class="slot-bar-fill" style="width:80%"></div></div>
     </div>
 
     <div class="slot-option" id="s2" onclick="selectSlot('s2')">
-      <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex justify-content-between align-items-center mb-1">
         <span class="small fw-semibold">Sáb, 15 Feb 2026 · 09:00</span>
-        <span class="text-muted small">2 / 5</span>
+        <span class="text-muted small">2/5</span>
       </div>
-      <div class="slot-bar mb-2"><div class="slot-bar-fill" style="width:40%;background:#adb5bd"></div></div>
-      <div class="d-flex flex-wrap gap-1" style="font-size:12px">
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Ana G. ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Carlos R. ✓</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Jimena C. ✗</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Emiliano T. ✗</span>
-        <span class="badge bg-secondary bg-opacity-10 text-secondary border" style="font-size:11px">Luis M. *</span>
-      </div>
+      <div class="slot-bar"><div class="slot-bar-fill" style="width:40%;background:#adb5bd"></div></div>
     </div>
 
     <div class="slot-option" id="s3" onclick="selectSlot('s3')">
-      <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex justify-content-between align-items-center mb-1">
         <span class="small fw-semibold">Dom, 16 Feb 2026 · 10:30</span>
-        <span class="text-muted small">1 / 5</span>
+        <span class="text-muted small">1/5</span>
       </div>
-      <div class="slot-bar mb-2"><div class="slot-bar-fill" style="width:20%;background:#adb5bd"></div></div>
-      <div class="d-flex flex-wrap gap-1" style="font-size:12px">
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Jimena C. ✓</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Ana G. ✗</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Carlos R. ✗</span>
-        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">Emiliano T. ✗</span>
-        <span class="badge bg-secondary bg-opacity-10 text-secondary border" style="font-size:11px">Luis M. *</span>
-      </div>
+      <div class="slot-bar"><div class="slot-bar-fill" style="width:20%;background:#adb5bd"></div></div>
     </div>
-    <p class="text-muted mb-3" style="font-size:12px">* Luis Méndez aún no respondió. Se asume no disponible.</p>
 
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 mt-3">
       <button class="btn btn-success" onclick="openModal('confirm')"><i class="bi bi-check2-circle me-1"></i>Confirmar horario</button>
       <button class="btn btn-outline-secondary" onclick="goTo('dashboard')">Volver</button>
     </div>
@@ -456,76 +341,49 @@
 </div>
 
 
-<!-- ══════════════ DETALLE ORGANIZADOR (confirmada) ══════════════ -->
+<!-- DETALLE ORG (confirmada) -->
 <div class="view" id="view-detail-confirmed">
-  <div class="container py-4" style="max-width:700px">
+  <div class="container py-4" style="max-width:680px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard')"><i class="bi bi-arrow-left me-1"></i>Mis reuniones</button>
     <div class="alert alert-success d-flex align-items-center gap-2 mb-4">
       <i class="bi bi-check-circle-fill fs-5"></i>
-      <span><strong>Reunión confirmada.</strong> Todos los participantes fueron notificados.</span>
+      <span><strong>Reunión confirmada.</strong> Todos fueron notificados.</span>
     </div>
     <h4 class="fw-bold mb-1">Revisión de Diseño UI</h4>
-    <p class="text-muted small mb-2">Revisar los wireframes finales y aprobar el flujo de usuario.</p>
-    <span class="badge bg-success mb-4 d-inline-block">Confirmada</span>
-    <div class="row g-3 small mb-3">
-      <div class="col-6">
-        <strong class="d-block">Horario confirmado</strong>
-        <span class="text-success fw-bold">Lunes 10 Feb 2026, 11:00 AM</span>
-      </div>
-      <div class="col-6">
-        <strong class="d-block">Organizador</strong>Sarah Moreno León
-      </div>
-      <div class="col-12">
-        <strong class="d-block">Participantes confirmados</strong>
-        Ana García, Carlos Ruiz, Jimena Corona, Emiliano del Toro
-      </div>
-    </div>
-    <div class="p-3 bg-light rounded border small">
-      <strong class="d-block mb-2">Disponibilidad confirmada</strong>
-      <div class="d-flex gap-2 flex-wrap">
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Ana García ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Carlos Ruiz ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Jimena Corona ✓</span>
-        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">Emiliano del Toro ✓</span>
-      </div>
-    </div>
+    <p class="text-muted small mb-1">Organiza: Sarah Moreno León</p>
+    <p class="text-success fw-bold"><i class="bi bi-calendar-event me-1"></i>Lunes 10 Feb 2026, 11:00 AM</p>
+    <p class="small text-muted">Participantes: Ana García, Carlos Ruiz, Jimena Corona, Emiliano del Toro</p>
   </div>
 </div>
 
 
-<!-- ══════════════ DETALLE PARTICIPANTE (pendiente) ══════════════ -->
+<!-- DETALLE PARTICIPANTE (pendiente) -->
 <div class="view" id="view-detail-part">
-  <div class="container py-4" style="max-width:660px">
+  <div class="container py-4" style="max-width:620px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard-part')"><i class="bi bi-arrow-left me-1"></i>Mis invitaciones</button>
     <h4 class="fw-bold mb-1">Reunión de Proyecto Final</h4>
-    <p class="text-muted small mb-2">Organizada por <strong>Sarah Moreno León</strong> · Discutir avances del proyecto.</p>
-    <span class="badge bg-warning text-dark mb-4 d-inline-block">Pendiente confirmación</span>
+    <p class="text-muted small mb-3">Organizada por <strong>Sarah Moreno León</strong></p>
 
     <div class="alert alert-warning small py-2 mb-4">
-      <i class="bi bi-info-circle me-1"></i>Marca los horarios en los que <strong>puedes asistir</strong>. El organizador usará esta información para confirmar la fecha.
+      <i class="bi bi-info-circle me-1"></i>Marca los horarios en los que <strong>puedes asistir</strong>.
     </div>
-
-    <h6 class="fw-semibold mb-3">¿Cuándo puedes asistir?</h6>
 
     <div class="avail-row checked" id="r1" onclick="toggleAvail('r1')">
       <div class="check-circle"><i class="bi bi-check"></i></div>
       <div>
-        <div class="fw-semibold small">Sábado, 15 de Febrero 2026</div>
-        <div class="text-muted small">09:00 AM — aprox. 1 hora</div>
+        <div class="fw-semibold small">Sábado, 15 Feb 2026 · 09:00 AM</div>
       </div>
     </div>
     <div class="avail-row checked" id="r2" onclick="toggleAvail('r2')">
       <div class="check-circle"><i class="bi bi-check"></i></div>
       <div>
-        <div class="fw-semibold small">Sábado, 15 de Febrero 2026</div>
-        <div class="text-muted small">02:00 PM — aprox. 1 hora</div>
+        <div class="fw-semibold small">Sábado, 15 Feb 2026 · 02:00 PM</div>
       </div>
     </div>
     <div class="avail-row" id="r3" onclick="toggleAvail('r3')">
-      <div class="check-circle" id="r3-circle"></div>
+      <div class="check-circle"></div>
       <div>
-        <div class="fw-semibold small">Domingo, 16 de Febrero 2026</div>
-        <div class="text-muted small">10:30 AM — aprox. 1 hora</div>
+        <div class="fw-semibold small">Domingo, 16 Feb 2026 · 10:30 AM</div>
       </div>
     </div>
 
@@ -534,97 +392,65 @@
 </div>
 
 
-<!-- ══════════════ DETALLE PARTICIPANTE (confirmada) ══════════════ -->
+<!-- DETALLE PARTICIPANTE (confirmada) -->
 <div class="view" id="view-detail-part-confirmed">
-  <div class="container py-4" style="max-width:660px">
+  <div class="container py-4" style="max-width:620px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard-part')"><i class="bi bi-arrow-left me-1"></i>Mis invitaciones</button>
     <div class="alert alert-success d-flex align-items-center gap-2 mb-4">
       <i class="bi bi-calendar-check-fill fs-5"></i>
-      <span><strong>¡Reunión confirmada!</strong> El organizador definió el horario definitivo.</span>
+      <span><strong>¡Reunión confirmada!</strong></span>
     </div>
     <h4 class="fw-bold mb-1">Revisión de Diseño UI</h4>
     <p class="text-muted small mb-2">Organizada por <strong>Sarah Moreno León</strong></p>
-    <span class="badge bg-success mb-4 d-inline-block">Confirmada</span>
-    <div class="row g-3 small mb-4">
-      <div class="col-12">
-        <strong class="d-block">Horario definitivo</strong>
-        <span class="text-success fw-bold fs-6"><i class="bi bi-calendar-event me-1"></i>Lunes 10 de Febrero 2026, 11:00 AM</span>
-      </div>
-      <div class="col-6"><strong class="d-block">Organizador</strong>Sarah Moreno León</div>
-    </div>
+    <p class="text-success fw-bold fs-6"><i class="bi bi-calendar-event me-1"></i>Lunes 10 Feb 2026, 11:00 AM</p>
     <div class="alert alert-secondary small mb-0">
-      <i class="bi bi-lock me-1"></i>La encuesta está cerrada. No se aceptan más cambios de disponibilidad.
+      <i class="bi bi-lock me-1"></i>La encuesta está cerrada.
     </div>
   </div>
 </div>
 
 
-<!-- ══════════════ NOTIFICACIONES ══════════════ -->
+<!-- NOTIFICACIONES -->
 <div class="view" id="view-notifications">
-  <div class="container py-4" style="max-width:660px">
+  <div class="container py-4" style="max-width:620px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goBack()"><i class="bi bi-arrow-left me-1"></i>Volver</button>
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
       <div>
         <h4 class="fw-bold mb-0">Notificaciones</h4>
         <p class="text-muted small mb-0" id="notif-count-text">3 sin leer</p>
       </div>
-      <button class="btn btn-sm btn-outline-secondary" onclick="markAllRead()"><i class="bi bi-check2-all me-1"></i>Marcar todas como leídas</button>
+      <button class="btn btn-sm btn-outline-secondary" onclick="markAllRead()">Marcar todas como leídas</button>
     </div>
 
     <div class="notif-item unread" onclick="goTo('detail-part')">
       <div class="d-flex gap-3 align-items-start">
         <i class="bi bi-envelope-open text-success fs-5 mt-1"></i>
-        <div class="flex-grow-1">
-          <div class="fw-semibold small">Nueva invitación a reunión</div>
-          <div class="text-muted small">Fuiste invitado a <strong>Reunión de Proyecto Final</strong> por Sarah Moreno León.</div>
-          <div class="text-muted" style="font-size:12px">Hace 2 horas · 11 Feb 2026, 10:05</div>
+        <div>
+          <div class="fw-semibold small">Nueva invitación</div>
+          <div class="text-muted small">Fuiste invitado a <strong>Reunión de Proyecto Final</strong> por Sarah Moreno.</div>
+          <div class="text-muted" style="font-size:12px">Hace 2 horas</div>
         </div>
-        <span class="badge bg-success rounded-circle p-1 mt-1" style="width:8px;height:8px;padding:0!important;min-width:8px"></span>
       </div>
     </div>
 
     <div class="notif-item unread" onclick="goTo('detail-part-confirmed')">
       <div class="d-flex gap-3 align-items-start">
         <i class="bi bi-check-circle text-success fs-5 mt-1"></i>
-        <div class="flex-grow-1">
+        <div>
           <div class="fw-semibold small">Reunión confirmada</div>
-          <div class="text-muted small"><strong>Revisión de Diseño UI</strong> confirmada para el <strong>Lunes 10 Feb, 11:00 AM</strong>.</div>
-          <div class="text-muted" style="font-size:12px">Hace 1 día · 10 Feb 2026, 16:30</div>
+          <div class="text-muted small"><strong>Revisión de Diseño UI</strong> — Lunes 10 Feb, 11:00 AM.</div>
+          <div class="text-muted" style="font-size:12px">Hace 1 día</div>
         </div>
-        <span class="badge bg-success rounded-circle p-1 mt-1" style="width:8px;height:8px;padding:0!important;min-width:8px"></span>
       </div>
     </div>
 
     <div class="notif-item unread">
       <div class="d-flex gap-3 align-items-start">
         <i class="bi bi-x-circle text-danger fs-5 mt-1"></i>
-        <div class="flex-grow-1">
+        <div>
           <div class="fw-semibold small">Reunión cancelada</div>
-          <div class="text-muted small"><strong>Sync semanal equipo</strong> fue cancelada por el organizador.</div>
-          <div class="text-muted" style="font-size:12px">Hace 3 días · 8 Feb 2026, 09:00</div>
-        </div>
-        <span class="badge bg-success rounded-circle p-1 mt-1" style="width:8px;height:8px;padding:0!important;min-width:8px"></span>
-      </div>
-    </div>
-
-    <div class="notif-item">
-      <div class="d-flex gap-3 align-items-start">
-        <i class="bi bi-envelope text-muted fs-5 mt-1"></i>
-        <div>
-          <div class="fw-semibold small">Invitación — Sprint Planning Q2</div>
-          <div class="text-muted small">Tu disponibilidad fue registrada exitosamente.</div>
-          <div class="text-muted" style="font-size:12px">Hace 5 días · 9 Feb 2026, 14:20</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="notif-item">
-      <div class="d-flex gap-3 align-items-start">
-        <i class="bi bi-calendar-check text-muted fs-5 mt-1"></i>
-        <div>
-          <div class="fw-semibold small">Disponibilidad registrada</div>
-          <div class="text-muted small">Tu respuesta para <strong>Kickoff Proyecto Nuevo</strong> fue guardada correctamente.</div>
-          <div class="text-muted" style="font-size:12px">Hace 1 semana · 3 Feb 2026, 11:00</div>
+          <div class="text-muted small"><strong>Sync semanal equipo</strong> fue cancelada.</div>
+          <div class="text-muted" style="font-size:12px">Hace 3 días</div>
         </div>
       </div>
     </div>
@@ -632,11 +458,11 @@
 </div>
 
 
-<!-- MODALS -->
+<!-- MODALES -->
 <div class="modal-overlay" id="modal-cancel" onclick="closeModal('cancel')">
   <div class="card p-4" style="max-width:400px;width:90%" onclick="event.stopPropagation()">
     <h5 class="fw-bold mb-2"><i class="bi bi-exclamation-triangle text-danger me-2"></i>Cancelar reunión</h5>
-    <p class="text-muted small mb-4">¿Seguro que deseas cancelar <strong>Reunión de Proyecto Final</strong>? Esta acción no se puede deshacer y se notificará a todos los participantes.</p>
+    <p class="text-muted small mb-4">¿Seguro que quieres cancelar <strong>Reunión de Proyecto Final</strong>? Se notificará a todos.</p>
     <div class="d-flex justify-content-end gap-2">
       <button class="btn btn-outline-secondary btn-sm" onclick="closeModal('cancel')">No, regresar</button>
       <button class="btn btn-danger btn-sm" onclick="confirmCancel()">Sí, cancelar</button>
@@ -647,7 +473,7 @@
 <div class="modal-overlay" id="modal-confirm" onclick="closeModal('confirm')">
   <div class="card p-4" style="max-width:400px;width:90%" onclick="event.stopPropagation()">
     <h5 class="fw-bold mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Confirmar reunión</h5>
-    <p class="text-muted small mb-4">Se confirmará la reunión para el <strong>Sábado 15 de Febrero, 14:00</strong>. Todos los participantes recibirán una notificación con el horario definitivo.</p>
+    <p class="text-muted small mb-4">Se confirmará para el <strong>Sáb 15 Feb, 14:00</strong>. Todos recibirán una notificación.</p>
     <div class="d-flex justify-content-end gap-2">
       <button class="btn btn-outline-secondary btn-sm" onclick="closeModal('confirm')">Cancelar</button>
       <button class="btn btn-success btn-sm" onclick="confirmMeeting()">Confirmar</button>
@@ -655,12 +481,12 @@
   </div>
 </div>
 
-<!-- TOASTS -->
 <div class="toast-box" id="toastBox"></div>
 
 <script>
   let currentUser = null;
   let lastDashboard = 'dashboard';
+  let userName = '';
 
   function goTo(view) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -687,27 +513,32 @@
       : 'bi bi-people fs-4 d-block mb-1 text-muted';
   }
 
+  function setUser(role, name, short) {
+    currentUser = role;
+    userName = name;
+    document.getElementById('nav-username').textContent = short;
+    document.getElementById('greeting-org').textContent = `Hola, ${name} 👋`;
+    document.getElementById('greeting-part').textContent = `Hola, ${name} 👋`;
+  }
+
   function register() {
-    currentUser = 'org';
+    setUser('org', 'Sarah', 'Sarah M.');
     lastDashboard = 'dashboard';
-    document.getElementById('nav-username').textContent = 'Sarah M.';
-    showToast('¡Cuenta creada! Bienvenida a SyncMeet.', 'success');
+    showToast('¡Cuenta creada! Bienvenida.', 'success');
     goTo('dashboard');
   }
 
   function loginAs(role) {
-    currentUser = role;
     if (role === 'org') {
+      setUser('org', 'Sarah', 'Sarah M.');
       lastDashboard = 'dashboard';
-      document.getElementById('nav-username').textContent = 'Sarah M.';
-      showToast('Sesión iniciada como Organizador.', 'success');
       goTo('dashboard');
     } else {
+      setUser('part', 'Emiliano', 'Emiliano T.');
       lastDashboard = 'dashboard-part';
-      document.getElementById('nav-username').textContent = 'Emiliano T.';
-      showToast('Sesión iniciada como Participante.', 'success');
       goTo('dashboard-part');
     }
+    showToast('Sesión iniciada.', 'success');
   }
 
   function logout() {
@@ -717,19 +548,11 @@
     goTo('landing');
   }
 
-  function setTab(btn) {
-    const parent = btn.closest('.d-flex');
-    parent.querySelectorAll('.btn').forEach(b => {
-      b.className = 'btn btn-sm btn-outline-secondary';
-    });
-    btn.className = 'btn btn-sm btn-success';
-  }
-
-  let slotCount = 3;
+  let slotCount = 2;
   function addSlot() {
     slotCount++;
-    const extras = ['Lunes 17 Feb 2026 · 09:00 AM', 'Martes 18 Feb 2026 · 03:00 PM', 'Miércoles 19 Feb 2026 · 11:00 AM'];
-    const date = extras[(slotCount - 4) % extras.length];
+    const extras = ['Lunes 17 Feb · 09:00 AM', 'Martes 18 Feb · 03:00 PM', 'Miércoles 19 Feb · 11:00 AM'];
+    const date = extras[(slotCount - 3) % extras.length];
     const div = document.createElement('div');
     div.className = 'd-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small';
     div.innerHTML = `<i class="bi bi-clock text-muted"></i><span class="flex-grow-1">${date}</span><button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>`;
@@ -754,41 +577,33 @@
   }
 
   function selectSlot(id) {
-    ['s1','s2','s3'].forEach(s => {
-      const el = document.getElementById(s);
-      el.classList.remove('selected');
-    });
+    ['s1','s2','s3'].forEach(s => document.getElementById(s).classList.remove('selected'));
     document.getElementById(id).classList.add('selected');
   }
 
   function toggleAvail(id) {
     const row = document.getElementById(id);
     row.classList.toggle('checked');
-    const circle = row.querySelector('.check-circle');
-    circle.innerHTML = row.classList.contains('checked') ? '<i class="bi bi-check"></i>' : '';
+    row.querySelector('.check-circle').innerHTML = row.classList.contains('checked') ? '<i class="bi bi-check"></i>' : '';
   }
 
   function submitAvail() {
-    showToast('Disponibilidad enviada correctamente.', 'success');
+    showToast('Disponibilidad enviada.', 'success');
     setTimeout(() => goTo('dashboard-part'), 500);
   }
 
-  function openModal(id) {
-    document.getElementById('modal-' + id).classList.add('open');
-  }
-  function closeModal(id) {
-    document.getElementById('modal-' + id).classList.remove('open');
-  }
+  function openModal(id) { document.getElementById('modal-' + id).classList.add('open'); }
+  function closeModal(id) { document.getElementById('modal-' + id).classList.remove('open'); }
 
   function confirmCancel() {
     closeModal('cancel');
-    showToast('Reunión cancelada. Participantes notificados.', 'danger');
+    showToast('Reunión cancelada.', 'danger');
     setTimeout(() => goTo('dashboard'), 600);
   }
 
   function confirmMeeting() {
     closeModal('confirm');
-    showToast('¡Reunión confirmada! Notificaciones enviadas.', 'success');
+    showToast('¡Reunión confirmada!', 'success');
     setTimeout(() => goTo('detail-confirmed'), 600);
   }
 
@@ -796,7 +611,7 @@
     document.querySelectorAll('.notif-item.unread').forEach(n => n.classList.remove('unread'));
     document.getElementById('notif-badge').classList.add('d-none');
     document.getElementById('notif-count-text').textContent = '0 sin leer';
-    showToast('Todas marcadas como leídas.', 'secondary');
+    showToast('Listo.', 'secondary');
   }
 
   function showToast(msg, type = 'success') {

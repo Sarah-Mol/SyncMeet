@@ -6,41 +6,7 @@
 <title>SyncMeet</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<style>
-  body { background: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
-  .view { display: none; }
-  .view.active { display: block; }
-  .navbar-brand { font-weight: 700; color: #198754 !important; }
-  .sidebar { background: #fff; border-right: 1px solid #dee2e6; min-height: calc(100vh - 56px); padding: 1.5rem 1rem; width: 220px; flex-shrink: 0; }
-  .sidebar .nav-link { color: #495057; border-radius: 6px; padding: 8px 12px; margin-bottom: 2px; font-size: 14px; }
-  .sidebar .nav-link:hover, .sidebar .nav-link.active { background: #e9f5ee; color: #198754; }
-  .main-content { padding: 2rem; flex-grow: 1; }
-  .card { border: 1px solid #dee2e6; border-radius: 8px; box-shadow: none; }
-  .meeting-row { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color .15s; }
-  .meeting-row:hover { border-color: #198754; }
-  .slot-bar { height: 7px; background: #e9ecef; border-radius: 4px; overflow: hidden; }
-  .slot-bar-fill { height: 100%; background: #198754; border-radius: 4px; }
-  .slot-option { border: 2px solid #dee2e6; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: all .15s; }
-  .slot-option:hover { border-color: #198754; }
-  .slot-option.best { border-color: #198754; background: #f0faf4; }
-  .slot-option.selected { border-color: #198754; background: #e9f5ee; box-shadow: 0 0 0 3px rgba(25,135,84,.1); }
-  .avail-row { border: 2px solid #dee2e6; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 14px; }
-  .avail-row:hover { border-color: #198754; }
-  .avail-row.checked { border-color: #198754; background: #f0faf4; }
-  .check-circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #ced4da; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; transition: all .15s; }
-  .avail-row.checked .check-circle { background: #198754; border-color: #198754; }
-  .notif-item { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color .15s; }
-  .notif-item:hover { border-color: #adb5bd; }
-  .notif-item.unread { border-left: 3px solid #198754; }
-  .chip { display: inline-flex; align-items: center; gap: 4px; background: #e9ecef; border-radius: 20px; padding: 3px 10px; font-size: 13px; margin: 3px; }
-  .chip .rm { cursor: pointer; color: #6c757d; line-height: 1; }
-  .chip .rm:hover { color: #dc3545; }
-  .toast-box { position: fixed; bottom: 20px; right: 20px; z-index: 9999; min-width: 260px; }
-  .role-card { border: 2px solid #dee2e6; border-radius: 8px; padding: 16px; cursor: pointer; text-align: center; transition: all .15s; }
-  .role-card.selected { border-color: #198754; background: #f0faf4; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1050; align-items: center; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-</style>
+<link rel="stylesheet" href="syncmeet.css">
 </head>
 <body>
 
@@ -71,11 +37,11 @@
   <div class="container py-5">
     <div class="row justify-content-center text-center mb-5">
       <div class="col-md-6">
-        <h1 class="fw-bold mb-3">Organiza reuniones</h1>
-        <p class="text-muted mb-4">SyncMeet reúne la disponibilidad de todos y <br> el mejor horario automáticamente.</p>
+        <h1 class="fw-bold mb-3">¿Cuándo pueden todos? 📅</h1>
+        <p class="text-muted mb-4">SyncMeet te ayuda a encontrar el horario que le queda a todo el equipo sin andar mandando mensajes por WhatsApp.</p>
         <div class="d-flex justify-content-center gap-2">
-          <button class="btn btn-success px-4" onclick="goTo('register')">Comenzar</button>
-          <button class="btn btn-outline-secondary px-4" onclick="goTo('login')">Iniciar sesión</button>
+          <button class="btn btn-success px-4" onclick="goTo('register')">Entrar</button>
+          <button class="btn btn-outline-secondary px-4" onclick="goTo('login')">Ya tengo cuenta</button>
         </div>
       </div>
     </div>
@@ -83,7 +49,7 @@
     <div class="row justify-content-center mb-5">
       <div class="col-md-7">
         <div class="card p-4">
-          <p class="fw-semibold small mb-3">Ejemplo — Reunión de Proyecto Final · 5 participantes</p>
+          <p class="fw-semibold small mb-3">Ejemplo de cómo se ve 👇 — 5 personas, 3 opciones de horario</p>
           <div class="mb-3">
             <div class="d-flex justify-content-between small mb-1">
               <span>Sáb 15 Feb · 14:00 <span class="badge bg-success ms-1" style="font-size:11px">Mejor opción</span></span>
@@ -111,22 +77,22 @@
       <div class="col-md-4">
         <div class="card p-4 h-100">
           <i class="bi bi-calendar-range text-success fs-4 mb-2"></i>
-          <h6 class="fw-bold">Propón múltiples horarios</h6>
-          <p class="text-muted small mb-0">El organizador agrega fechas posibles y cada participante marca cuándo puede asistir.</p>
+          <h6 class="fw-bold">Propón varios horarios</h6>
+          <p class="text-muted small mb-0">El que organiza agrega las fechas posibles y cada quien marca cuándo puede.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card p-4 h-100">
           <i class="bi bi-bar-chart text-warning fs-4 mb-2"></i>
-          <h6 class="fw-bold">Coincidencias automáticas</h6>
-          <p class="text-muted small mb-0">El sistema resalta el horario con mayor disponibilidad para facilitar la decisión.</p>
+          <h6 class="fw-bold">Ve quién puede cuándo</h6>
+          <p class="text-muted small mb-0">El sistema te muestra qué horario le queda a más gente para que sea más fácil decidir.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="card p-4 h-100">
           <i class="bi bi-bell text-danger fs-4 mb-2"></i>
-          <h6 class="fw-bold">Notificaciones automáticas</h6>
-          <p class="text-muted small mb-0">Invitaciones, confirmaciones y cancelaciones se notifican al instante a todos.</p>
+          <h6 class="fw-bold">Avisos al instante</h6>
+          <p class="text-muted small mb-0">Todos reciben notificación cuando los invitan, cuando se confirma la reunión o si se cancela.</p>
         </div>
       </div>
     </div>

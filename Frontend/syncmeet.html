@@ -82,15 +82,18 @@
           <p class="text-muted small mb-4">Únete a SyncMeet para coordinar reuniones.</p>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Nombre completo</label>
-            <input type="text" class="form-control" value="Sarah Moreno León">
+            <input type="text" class="form-control" id="reg-name" placeholder="Tu nombre completo">
+            <div class="invalid-feedback">El nombre completo es requerido.</div>
           </div>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Correo electrónico</label>
-            <input type="email" class="form-control" value="sarah.moreno@iteso.mx">
+            <input type="email" class="form-control" id="reg-email" placeholder="correo@ejemplo.com">
+            <div class="invalid-feedback">Ingresa un correo electrónico válido.</div>
           </div>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Contraseña</label>
-            <input type="password" class="form-control" value="12345678">
+            <input type="password" class="form-control" id="reg-password" placeholder="Mínimo 8 caracteres">
+            <div class="invalid-feedback">La contraseña debe tener al menos 8 caracteres.</div>
           </div>
           <div class="mb-4">
             <label class="form-label small fw-semibold d-block mb-2">¿Cuál es tu rol?</label>
@@ -249,7 +252,8 @@
       <h5 class="fw-bold mb-4">Nueva reunión</h5>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Título</label>
-        <input type="text" class="form-control" value="Reunión de Proyecto Final">
+        <input type="text" class="form-control" id="meeting-title" placeholder="Ej. Reunión de Proyecto Final">
+        <div class="invalid-feedback">El título de la reunión es requerido.</div>
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Descripción <span class="text-muted fw-normal">(opcional)</span></label>
@@ -274,8 +278,11 @@
       </div>
       <hr>
       <div class="fw-semibold small mb-2">Participantes</div>
-      <div class="d-flex gap-2 mb-2">
-        <input type="email" class="form-control form-control-sm" id="emailInput" placeholder="correo@ejemplo.com">
+      <div class="d-flex gap-2 mb-2 align-items-start">
+        <div class="flex-grow-1">
+          <input type="email" class="form-control form-control-sm" id="emailInput" placeholder="correo@ejemplo.com">
+          <div class="invalid-feedback">Ingresa un correo electrónico válido.</div>
+        </div>
         <button class="btn btn-sm btn-outline-success" onclick="addParticipant()">Añadir</button>
       </div>
       <div id="chipsContainer">
@@ -521,8 +528,51 @@
     document.getElementById('greeting-part').textContent = `Hola, ${name} 👋`;
   }
 
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function markInvalid(el, msg) {
+    el.classList.add('is-invalid');
+    el.classList.remove('is-valid');
+    const fb = el.parentElement.querySelector('.invalid-feedback');
+    if (fb && msg) fb.textContent = msg;
+  }
+
+  function markValid(el) {
+    el.classList.remove('is-invalid');
+    el.classList.add('is-valid');
+  }
+
+  function clearField(el) {
+    el.classList.remove('is-invalid', 'is-valid');
+  }
+
   function register() {
-    setUser('org', 'Sarah', 'Sarah M.');
+    const name  = document.getElementById('reg-name');
+    const email = document.getElementById('reg-email');
+    const pass  = document.getElementById('reg-password');
+    let ok = true;
+
+    [name, email, pass].forEach(clearField);
+
+    if (!name.value.trim()) {
+      markInvalid(name, 'El nombre completo es requerido.'); ok = false;
+    } else { markValid(name); }
+
+    if (!validateEmail(email.value.trim())) {
+      markInvalid(email, 'Ingresa un correo electrónico válido.'); ok = false;
+    } else { markValid(email); }
+
+    if (pass.value.length < 8) {
+      markInvalid(pass, 'La contraseña debe tener al menos 8 caracteres.'); ok = false;
+    } else { markValid(pass); }
+
+    if (!ok) return;
+
+    const parts = name.value.trim().split(' ');
+    const short = parts[0] + (parts[1] ? ' ' + parts[1][0] + '.' : '');
+    setUser('org', parts[0], short);
     lastDashboard = 'dashboard';
     showToast('¡Cuenta creada! Bienvenida.', 'success');
     goTo('dashboard');
@@ -562,16 +612,38 @@
 
   function addParticipant() {
     const input = document.getElementById('emailInput');
-    const email = input.value.trim() || 'nuevo@iteso.mx';
+    const email = input.value.trim();
+    clearField(input);
+
+    if (!email) {
+      markInvalid(input, 'Escribe un correo antes de añadir.'); return;
+    }
+    if (!validateEmail(email)) {
+      markInvalid(input, 'Ingresa un correo electrónico válido.'); return;
+    }
+
     const span = document.createElement('span');
     span.className = 'chip';
     span.innerHTML = `${email}<span class="rm" onclick="this.parentElement.remove()"> ×</span>`;
     document.getElementById('chipsContainer').appendChild(span);
     input.value = '';
+    clearField(input);
     showToast(email + ' añadido.', 'success');
   }
 
   function createMeeting() {
+    const title = document.getElementById('meeting-title');
+    clearField(title);
+
+    if (!title.value.trim()) {
+      markInvalid(title, 'El título de la reunión es requerido.'); return;
+    }
+    markValid(title);
+
+    if (document.getElementById('slotsContainer').children.length === 0) {
+      showToast('Agrega al menos un horario.', 'danger'); return;
+    }
+
     showToast('Reunión creada. Invitaciones enviadas.', 'success');
     setTimeout(() => goTo('dashboard'), 500);
   }

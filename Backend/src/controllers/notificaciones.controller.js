@@ -1,9 +1,11 @@
-const { ok } = require('../utils/respuesta');
+const Notificacion = require('../models/Notificacion');
+const { ok, err } = require('../utils/respuesta');
 
 const obtenerNotificaciones = async (req, res, next) => {
   try {
-    // TODO [Sarah]: listar notificaciones del usuario autenticado
-    res.json(ok([]));
+    const notificaciones = await Notificacion.find({ usuarioId: req.usuarioId })
+      .sort({ createdAt: -1 });
+    res.json(ok(notificaciones));
   } catch (error) {
     next(error);
   }
@@ -11,8 +13,19 @@ const obtenerNotificaciones = async (req, res, next) => {
 
 const marcarLeida = async (req, res, next) => {
   try {
-    // TODO [Sarah]: marcar notificación como leída
-    res.json(ok({}));
+    const notificacion = await Notificacion.findById(req.params.id);
+
+    if (!notificacion) {
+      return res.status(404).json(err('Notificación no encontrada', 'NOT_FOUND'));
+    }
+    if (notificacion.usuarioId.toString() !== req.usuarioId) {
+      return res.status(403).json(err('No tienes permiso para modificar esta notificación', 'FORBIDDEN'));
+    }
+
+    notificacion.leida = true;
+    await notificacion.save();
+
+    res.json(ok(notificacion));
   } catch (error) {
     next(error);
   }

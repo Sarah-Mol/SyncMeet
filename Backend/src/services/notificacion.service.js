@@ -1,8 +1,12 @@
 const Notificacion = require('../models/Notificacion');
 
 const crearNotificacion = async ({ usuarioId, tipo, mensaje }) => {
-  // TODO [Sarah]: guardar notificación interna en BD
   return await Notificacion.create({ usuarioId, tipo, mensaje });
 };
 
-module.exports = { crearNotificacion };
+const notificarParticipantes = async (participantesIds, tipo, mensaje) => {
+  const docs = participantesIds.map(id => ({ usuarioId: id, tipo, mensaje }));
+  await Notificacion.insertMany(docs);
+};
+
+module.exports = { crearNotificacion, notificarParticipantes };

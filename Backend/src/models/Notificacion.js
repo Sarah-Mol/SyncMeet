@@ -8,4 +8,6 @@ const notificacionSchema = new mongoose.Schema({
   leida: { type: Boolean, default: false },
 }, { timestamps: true });
 
+notificacionSchema.index({ usuarioId: 1, createdAt: -1 });
+
 module.exports = mongoose.model('Notificacion', notificacionSchema);

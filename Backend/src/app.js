@@ -13,10 +13,25 @@ const notificacionesRoutes = require('./routes/notificaciones.routes');
 
 const app = express();
 
-app.use(cors({ origin: FRONTEND_URL, credentials: true }));
-app.use(express.json());
+const allowedOrigins = new Set([
+  FRONTEND_URL,
+  FRONTEND_URL.replace('localhost', '127.0.0.1'),
+  FRONTEND_URL.replace('127.0.0.1', 'localhost'),
+]);
 
-const loginLimiter = rateLimit({
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS: origen no permitido'));
+    }
+  },
+  credentials: true,
+}));
+app.use(express.json({ limit: '20kb' }));
+
+const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
   standardHeaders: true,
@@ -24,7 +39,14 @@ const loginLimiter = rateLimit({
   message: { success: false, error: 'Demasiados intentos. Espera 15 minutos.', code: 'RATE_LIMIT' },
 });
 
-app.use('/api/auth/login', loginLimiter);
+const helmet = require('helmet');
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
+
+
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/registro', authLimiter);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/reuniones', reunionesRoutes);

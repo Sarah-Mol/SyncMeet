@@ -1,3 +1,4 @@
+const Reunion = require('../models/Reunion');
 const OpcionHorario = require('../models/OpcionHorario');
 const Disponibilidad = require('../models/Disponibilidad');
 const { ok, err } = require('../utils/respuesta');
@@ -13,6 +14,14 @@ const agregarOpcion = async (req, res, next) => {
     }
     if (!esFechaFutura(fechaHora)) {
       return res.status(400).json(err('La fecha debe ser futura', 'VALIDATION_ERROR'));
+    }
+
+    const reunion = await Reunion.findById(reunionId);
+    if (!reunion) {
+      return res.status(404).json(err('Reunión no encontrada', 'NOT_FOUND'));
+    }
+    if (reunion.estado !== 'pendiente') {
+      return res.status(400).json(err(`No se pueden agregar opciones a una reunión ${reunion.estado}`, 'INVALID_STATE'));
     }
 
     const opcion = await OpcionHorario.create({ reunionId, fechaHora });

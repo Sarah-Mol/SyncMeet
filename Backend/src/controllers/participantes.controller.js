@@ -48,6 +48,9 @@ const agregarParticipante = async (req, res, next) => {
 
     res.status(201).json(ok(participante));
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json(err('El usuario ya es participante de esta reunión', 'CONFLICT'));
+    }
     next(error);
   }
 };

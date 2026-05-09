@@ -11,6 +11,9 @@ const registrarDisponibilidad = async (req, res, next) => {
     if (!opcionHorarioId || disponible === undefined) {
       return res.status(400).json(err('opcionHorarioId y disponible son obligatorios', 'VALIDATION_ERROR'));
     }
+    if (typeof disponible !== 'boolean') {
+      return res.status(400).json(err('disponible debe ser true o false', 'VALIDATION_ERROR'));
+    }
 
     const opcion = await OpcionHorario.findOne({ _id: opcionHorarioId, reunionId });
     if (!opcion) {
@@ -40,6 +43,9 @@ const actualizarDisponibilidad = async (req, res, next) => {
 
     if (disponible === undefined) {
       return res.status(400).json(err('disponible es obligatorio', 'VALIDATION_ERROR'));
+    }
+    if (typeof disponible !== 'boolean') {
+      return res.status(400).json(err('disponible debe ser true o false', 'VALIDATION_ERROR'));
     }
 
     const disp = await Disponibilidad.findOne({
@@ -74,7 +80,11 @@ const obtenerDisponibilidades = async (req, res, next) => {
 const obtenerCoincidencias = async (req, res, next) => {
   try {
     const resultado = await calcularCoincidencias(req.params.reunionId);
-    res.json(ok(resultado));
+    const data = resultado.map(c => ({
+      opcion: { _id: c.opcion._id, fechaHora: c.opcion.fechaHora },
+      cantidad: c.cantidad,
+    }));
+    res.json(ok(data));
   } catch (error) {
     next(error);
   }

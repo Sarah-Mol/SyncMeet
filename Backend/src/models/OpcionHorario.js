@@ -5,4 +5,6 @@ const opcionHorarioSchema = new mongoose.Schema({
   fechaHora: { type: Date, required: true },
 }, { timestamps: true });
 
+opcionHorarioSchema.index({ reunionId: 1 });
+
 module.exports = mongoose.model('OpcionHorario', opcionHorarioSchema);

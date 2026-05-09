@@ -9,7 +9,7 @@ const requireParticipante = async (req, res, next) => {
       usuarioId: req.usuarioId,
     });
     if (!participante) {
-      return res.status(403).json(err('No eres participante de esta reunión', 403));
+      return res.status(403).json(err('No eres participante de esta reunión', 'FORBIDDEN'));
     }
     next();
   } catch (error) {

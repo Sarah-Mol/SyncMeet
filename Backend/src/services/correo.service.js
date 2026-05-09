@@ -5,13 +5,16 @@ const path = require('path');
 
 const templateCache = {};
 
+const escHtml = (str) =>
+  String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
 const cargarTemplate = (nombre, variables) => {
   if (!templateCache[nombre]) {
     templateCache[nombre] = fs.readFileSync(path.join(__dirname, '../templates', nombre), 'utf-8');
   }
   let html = templateCache[nombre];
   Object.entries(variables).forEach(([key, value]) => {
-    html = html.replace(new RegExp(`{{${key}}}`, 'g'), value ?? '');
+    html = html.replace(new RegExp(`{{${key}}}`, 'g'), escHtml(value));
   });
   return html;
 };

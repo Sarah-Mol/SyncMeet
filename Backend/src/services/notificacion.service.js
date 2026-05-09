@@ -6,7 +6,7 @@ const crearNotificacion = async ({ usuarioId, tipo, mensaje, reunionId = null })
 
 const notificarParticipantes = async (participantesIds, tipo, mensaje, reunionId = null) => {
   const docs = participantesIds.map(id => ({ usuarioId: id, tipo, mensaje, reunionId }));
-  await Notificacion.insertMany(docs);
+  await Notificacion.insertMany(docs, { ordered: false });
 };
 
 module.exports = { crearNotificacion, notificarParticipantes };

@@ -10,7 +10,7 @@ const requireOrganizador = async (req, res, next) => {
       rol: 'organizador',
     });
     if (!participante) {
-      return res.status(403).json(err('Solo el organizador puede realizar esta acción', 403));
+      return res.status(403).json(err('Solo el organizador puede realizar esta acción', 'FORBIDDEN'));
     }
     next();
   } catch (error) {

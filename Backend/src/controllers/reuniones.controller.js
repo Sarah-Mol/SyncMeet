@@ -75,14 +75,20 @@ const editarReunion = async (req, res, next) => {
       return res.status(400).json(err('El título no puede estar vacío', 'VALIDATION_ERROR'));
     }
 
+    const reunion = await Reunion.findById(req.params.id);
+    if (!reunion) {
+      return res.status(404).json(err('Reunión no encontrada', 'NOT_FOUND'));
+    }
+    if (reunion.estado !== 'pendiente') {
+      return res.status(400).json(err(`No se puede editar una reunión ${reunion.estado}`, 'INVALID_STATE'));
+    }
+
     const cambios = {};
     if (titulo) cambios.titulo = titulo.trim();
     if (descripcion !== undefined) cambios.descripcion = descripcion.trim();
 
-    const reunion = await Reunion.findByIdAndUpdate(req.params.id, cambios, { new: true });
-    if (!reunion) {
-      return res.status(404).json(err('Reunión no encontrada', 'NOT_FOUND'));
-    }
+    Object.assign(reunion, cambios);
+    await reunion.save();
 
     res.json(ok(reunion));
   } catch (error) {
@@ -120,21 +126,20 @@ const confirmarReunion = async (req, res, next) => {
     const fechaHora = new Date(opcion.fechaHora).toLocaleString('es-MX', {
       dateStyle: 'long', timeStyle: 'short',
     });
-    const ids = participantes.map(p => p.usuarioId._id);
+    const validos = participantes.filter(p => p.usuarioId);
+    const ids = validos.map(p => p.usuarioId._id);
     await notificarParticipantes(
       ids, 'confirmacion',
       `La reunión "${reunion.titulo}" fue confirmada para el ${fechaHora}`,
       reunion._id,
     );
 
-    for (const p of participantes) {
-      await enviarConfirmacion({
-        destinatario: p.usuarioId.email,
-        nombre: p.usuarioId.nombre,
-        reunion,
-        fechaHora,
-      });
-    }
+    await Promise.all(validos.map(p => enviarConfirmacion({
+      destinatario: p.usuarioId.email,
+      nombre: p.usuarioId.nombre,
+      reunion,
+      fechaHora,
+    })));
 
     res.json(ok(reunion));
   } catch (error) {
@@ -158,20 +163,19 @@ const cancelarReunion = async (req, res, next) => {
     const participantes = await ParticipanteReunion.find({ reunionId: reunion._id })
       .populate('usuarioId');
 
-    const ids = participantes.map(p => p.usuarioId._id);
+    const validos = participantes.filter(p => p.usuarioId);
+    const ids = validos.map(p => p.usuarioId._id);
     await notificarParticipantes(
       ids, 'cancelacion',
       `La reunión "${reunion.titulo}" fue cancelada`,
       reunion._id,
     );
 
-    for (const p of participantes) {
-      await enviarCancelacion({
-        destinatario: p.usuarioId.email,
-        nombre: p.usuarioId.nombre,
-        reunion,
-      });
-    }
+    await Promise.all(validos.map(p => enviarCancelacion({
+      destinatario: p.usuarioId.email,
+      nombre: p.usuarioId.nombre,
+      reunion,
+    })));
 
     res.json(ok(reunion));
   } catch (error) {

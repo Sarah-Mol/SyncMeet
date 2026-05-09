@@ -7,4 +7,6 @@ const participanteReunionSchema = new mongoose.Schema({
   estado: { type: String, enum: ['pendiente', 'aceptado', 'rechazado'], default: 'pendiente' },
 }, { timestamps: true });
 
+participanteReunionSchema.index({ reunionId: 1, usuarioId: 1 }, { unique: true });
+
 module.exports = mongoose.model('ParticipanteReunion', participanteReunionSchema);

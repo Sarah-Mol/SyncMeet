@@ -9,7 +9,7 @@ const requireParticipante = require('../middlewares/requireParticipante');
 
 router.post('/', requireAuth, requireParticipante, registrarDisponibilidad);
 router.put('/:disponibilidadId', requireAuth, requireParticipante, actualizarDisponibilidad);
-router.get('/', requireAuth, obtenerDisponibilidades);
-router.get('/coincidencias', requireAuth, obtenerCoincidencias);
+router.get('/coincidencias', requireAuth, requireParticipante, obtenerCoincidencias);
+router.get('/', requireAuth, requireParticipante, obtenerDisponibilidades);
 
 module.exports = router;

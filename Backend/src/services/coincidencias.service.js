@@ -1,10 +1,19 @@
 const Disponibilidad = require('../models/Disponibilidad');
 
 const calcularCoincidencias = async (reunionId) => {
-  // TODO [Jimena]: agrupar disponibilidades por opcionHorarioId,
-  // contar cuántos participantes marcaron disponible: true,
-  // y retornar el resultado ordenado de mayor a menor
-  return [];
+  const disponibilidades = await Disponibilidad.find({ reunionId, disponible: true })
+    .populate('opcionHorarioId');
+
+  const mapa = {};
+  for (const d of disponibilidades) {
+    const opcion = d.opcionHorarioId;
+    if (!opcion) continue;
+    const id = opcion._id.toString();
+    if (!mapa[id]) mapa[id] = { opcion, cantidad: 0 };
+    mapa[id].cantidad++;
+  }
+
+  return Object.values(mapa).sort((a, b) => b.cantidad - a.cantidad);
 };
 
 module.exports = { calcularCoincidencias };

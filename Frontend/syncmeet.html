@@ -23,9 +23,9 @@
     <div id="nav-auth" class="d-none d-flex align-items-center gap-2">
       <button class="btn btn-link btn-sm text-secondary position-relative p-1" onclick="goTo('notifications')">
         <i class="bi bi-bell fs-5"></i>
-        <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:9px;padding:3px 5px">3</span>
+        <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" style="font-size:9px;padding:3px 5px">0</span>
       </button>
-      <span id="nav-username" class="text-muted small">Sarah M.</span>
+      <span id="nav-username" class="text-muted small"></span>
       <button class="btn btn-outline-secondary btn-sm" onclick="logout()"><i class="bi bi-box-arrow-right"></i></button>
     </div>
   </div>
@@ -90,29 +90,10 @@
             <input type="email" class="form-control" id="reg-email" placeholder="correo@ejemplo.com">
             <div class="invalid-feedback">Ingresa un correo electrónico válido.</div>
           </div>
-          <div class="mb-3">
+          <div class="mb-4">
             <label class="form-label small fw-semibold">Contraseña</label>
             <input type="password" class="form-control" id="reg-password" placeholder="Mínimo 8 caracteres">
             <div class="invalid-feedback">La contraseña debe tener al menos 8 caracteres.</div>
-          </div>
-          <div class="mb-4">
-            <label class="form-label small fw-semibold d-block mb-2">¿Cuál es tu rol?</label>
-            <div class="row g-2">
-              <div class="col-6">
-                <div class="role-card selected" id="rc-org" onclick="selectRole('org')">
-                  <i class="bi bi-person-gear fs-4 d-block mb-1 text-success"></i>
-                  <div class="fw-semibold small">Organizador</div>
-                  <div class="text-muted" style="font-size:12px">Creo reuniones</div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="role-card" id="rc-part" onclick="selectRole('part')">
-                  <i class="bi bi-people fs-4 d-block mb-1 text-muted"></i>
-                  <div class="fw-semibold small">Participante</div>
-                  <div class="text-muted" style="font-size:12px">Solo me invitan</div>
-                </div>
-              </div>
-            </div>
           </div>
           <button class="btn btn-success w-100" onclick="register()">Crear cuenta</button>
           <p class="text-center text-muted small mt-3 mb-0">¿Ya tienes cuenta? <a href="#" class="text-success text-decoration-none" onclick="goTo('login')">Inicia sesión</a></p>
@@ -132,15 +113,15 @@
           <h4 class="fw-bold mb-1">Iniciar sesión</h4>
           <div class="mb-3">
             <label class="form-label small fw-semibold">Correo</label>
-            <input type="email" class="form-control" value="sarah.moreno@iteso.mx">
+            <input type="email" class="form-control" id="login-email" placeholder="correo@ejemplo.com">
+            <div class="invalid-feedback">Ingresa un correo válido.</div>
           </div>
           <div class="mb-4">
             <label class="form-label small fw-semibold">Contraseña</label>
-            <input type="password" class="form-control" value="12345678">
+            <input type="password" class="form-control" id="login-password" placeholder="Tu contraseña">
+            <div class="invalid-feedback">La contraseña es requerida.</div>
           </div>
-          <p class="text-muted small mb-2">Acceso rápido (demo):</p>
-          <button class="btn btn-success w-100 mb-2" onclick="loginAs('org')"><i class="bi bi-person-gear me-1"></i>Entrar como Organizador</button>
-          <button class="btn btn-outline-secondary w-100" onclick="loginAs('part')"><i class="bi bi-people me-1"></i>Entrar como Participante</button>
+          <button class="btn btn-success w-100" onclick="login()">Iniciar sesión</button>
           <p class="text-center text-muted small mt-3 mb-0">¿No tienes cuenta? <a href="#" class="text-success text-decoration-none" onclick="goTo('register')">Regístrate</a></p>
         </div>
       </div>
@@ -154,8 +135,9 @@
   <div class="d-flex">
     <div class="sidebar">
       <nav class="nav flex-column">
-        <a class="nav-link active" href="#"><i class="bi bi-grid me-2"></i>Mis reuniones</a>
+        <a class="nav-link active" href="#" onclick="goTo('dashboard')"><i class="bi bi-grid me-2"></i>Mis reuniones</a>
         <a class="nav-link" href="#" onclick="goTo('create-meeting')"><i class="bi bi-plus-circle me-2"></i>Nueva reunión</a>
+        <a class="nav-link" href="#" onclick="goTo('dashboard-part')"><i class="bi bi-people me-2"></i>Mis invitaciones</a>
         <a class="nav-link" href="#" onclick="goTo('notifications')"><i class="bi bi-bell me-2"></i>Notificaciones</a>
         <hr class="my-2">
         <a class="nav-link text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a>
@@ -166,42 +148,8 @@
         <h4 class="fw-bold mb-0" id="greeting-org">Hola 👋</h4>
         <button class="btn btn-success btn-sm" onclick="goTo('create-meeting')"><i class="bi bi-plus me-1"></i>Nueva reunión</button>
       </div>
-
-      <div class="meeting-row" onclick="goTo('detail-org')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Reunión de Proyecto Final</div>
-            <div class="text-muted" style="font-size:13px">5 participantes · 3/5 respondieron</div>
-          </div>
-          <span class="badge bg-warning text-dark">Pendiente</span>
-        </div>
-      </div>
-      <div class="meeting-row" onclick="goTo('detail-org')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Sprint Planning Q2</div>
-            <div class="text-muted" style="font-size:13px">4 participantes · 2/4 respondieron</div>
-          </div>
-          <span class="badge bg-warning text-dark">Pendiente</span>
-        </div>
-      </div>
-      <div class="meeting-row" onclick="goTo('detail-confirmed')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Revisión de Diseño UI</div>
-            <div class="text-muted" style="font-size:13px">Confirmada: Lun 10 Feb, 11:00</div>
-          </div>
-          <span class="badge bg-success">Confirmada</span>
-        </div>
-      </div>
-      <div class="meeting-row opacity-50">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Sync semanal equipo</div>
-            <div class="text-muted" style="font-size:13px">Cancelada por organizador</div>
-          </div>
-          <span class="badge bg-secondary">Cancelada</span>
-        </div>
+      <div id="meetings-list">
+        <div class="text-muted small">Cargando reuniones...</div>
       </div>
     </div>
   </div>
@@ -213,7 +161,8 @@
   <div class="d-flex">
     <div class="sidebar">
       <nav class="nav flex-column">
-        <a class="nav-link active" href="#"><i class="bi bi-grid me-2"></i>Mis invitaciones</a>
+        <a class="nav-link" href="#" onclick="goTo('dashboard')"><i class="bi bi-grid me-2"></i>Mis reuniones</a>
+        <a class="nav-link active" href="#"><i class="bi bi-people me-2"></i>Mis invitaciones</a>
         <a class="nav-link" href="#" onclick="goTo('notifications')"><i class="bi bi-bell me-2"></i>Notificaciones</a>
         <hr class="my-2">
         <a class="nav-link text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a>
@@ -221,23 +170,8 @@
     </div>
     <div class="main-content">
       <h4 class="fw-bold mb-4" id="greeting-part">Hola 👋</h4>
-      <div class="meeting-row" onclick="goTo('detail-part')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Reunión de Proyecto Final</div>
-            <div class="text-muted" style="font-size:13px">Organiza: Sarah Moreno · <span class="text-warning fw-semibold">Pendiente tu respuesta</span></div>
-          </div>
-          <span class="badge bg-warning text-dark">Pendiente</span>
-        </div>
-      </div>
-      <div class="meeting-row" onclick="goTo('detail-part-confirmed')">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="fw-semibold small">Revisión de Diseño UI</div>
-            <div class="text-muted" style="font-size:13px">Confirmada: Lun 10 Feb, 11:00</div>
-          </div>
-          <span class="badge bg-success">Confirmada</span>
-        </div>
+      <div id="meetings-list-part">
+        <div class="text-muted small">Cargando invitaciones...</div>
       </div>
     </div>
   </div>
@@ -257,25 +191,17 @@
       </div>
       <div class="mb-3">
         <label class="form-label small fw-semibold">Descripción <span class="text-muted fw-normal">(opcional)</span></label>
-        <textarea class="form-control" rows="2">Discutir los avances del proyecto final.</textarea>
+        <textarea class="form-control" id="meeting-desc" rows="2" placeholder="Breve descripción de la reunión..."></textarea>
       </div>
       <hr>
       <div class="d-flex justify-content-between align-items-center mb-2">
         <span class="fw-semibold small">Opciones de horario</span>
-        <button class="btn btn-sm btn-outline-success" onclick="addSlot()"><i class="bi bi-plus me-1"></i>Agregar</button>
       </div>
-      <div id="slotsContainer">
-        <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small">
-          <i class="bi bi-clock text-muted"></i>
-          <span class="flex-grow-1">Sábado, 15 Feb 2026 · 09:00 AM</span>
-          <button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>
-        </div>
-        <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small">
-          <i class="bi bi-clock text-muted"></i>
-          <span class="flex-grow-1">Sábado, 15 Feb 2026 · 02:00 PM</span>
-          <button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>
-        </div>
+      <div class="d-flex gap-2 mb-2 align-items-center">
+        <input type="datetime-local" class="form-control form-control-sm" id="slot-datetime">
+        <button class="btn btn-sm btn-outline-success flex-shrink-0" onclick="addSlot()"><i class="bi bi-plus me-1"></i>Agregar</button>
       </div>
+      <div id="slotsContainer" class="mb-2"></div>
       <hr>
       <div class="fw-semibold small mb-2">Participantes</div>
       <div class="d-flex gap-2 mb-2 align-items-start">
@@ -285,11 +211,7 @@
         </div>
         <button class="btn btn-sm btn-outline-success" onclick="addParticipant()">Añadir</button>
       </div>
-      <div id="chipsContainer">
-        <span class="chip">ana.garcia@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
-        <span class="chip">carlos.ruiz@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
-        <span class="chip">jimena.corona@iteso.mx<span class="rm" onclick="this.parentElement.remove()"> ×</span></span>
-      </div>
+      <div id="chipsContainer" class="mb-2"></div>
       <div class="d-flex gap-2 mt-4">
         <button class="btn btn-success" onclick="createMeeting()">Crear reunión</button>
         <button class="btn btn-outline-secondary" onclick="goTo('dashboard')">Cancelar</button>
@@ -305,43 +227,17 @@
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard')"><i class="bi bi-arrow-left me-1"></i>Mis reuniones</button>
     <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
       <div>
-        <h4 class="fw-bold mb-1">Reunión de Proyecto Final</h4>
-        <span class="badge bg-warning text-dark">Pendiente · 3/5 respondieron</span>
+        <h4 class="fw-bold mb-1" id="detail-org-title"></h4>
+        <span class="badge bg-warning text-dark" id="detail-org-badge">Pendiente</span>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-sm btn-outline-secondary" onclick="goTo('create-meeting')"><i class="bi bi-pencil me-1"></i>Editar</button>
         <button class="btn btn-sm btn-outline-danger" onclick="openModal('cancel')"><i class="bi bi-x-circle me-1"></i>Cancelar</button>
       </div>
     </div>
-
     <p class="text-muted small mb-3">Selecciona un horario y luego confirma la reunión.</p>
-
-    <div class="slot-option best" id="s1" onclick="selectSlot('s1')">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="small fw-semibold">Sáb, 15 Feb 2026 · 14:00 <span class="badge bg-success ms-1">Mejor opción</span></span>
-        <span class="text-success small fw-bold">4/5</span>
-      </div>
-      <div class="slot-bar"><div class="slot-bar-fill" style="width:80%"></div></div>
-    </div>
-
-    <div class="slot-option" id="s2" onclick="selectSlot('s2')">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="small fw-semibold">Sáb, 15 Feb 2026 · 09:00</span>
-        <span class="text-muted small">2/5</span>
-      </div>
-      <div class="slot-bar"><div class="slot-bar-fill" style="width:40%;background:#adb5bd"></div></div>
-    </div>
-
-    <div class="slot-option" id="s3" onclick="selectSlot('s3')">
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span class="small fw-semibold">Dom, 16 Feb 2026 · 10:30</span>
-        <span class="text-muted small">1/5</span>
-      </div>
-      <div class="slot-bar"><div class="slot-bar-fill" style="width:20%;background:#adb5bd"></div></div>
-    </div>
-
+    <div id="slots-list-org"></div>
     <div class="d-flex gap-2 mt-3">
-      <button class="btn btn-success" onclick="openModal('confirm')"><i class="bi bi-check2-circle me-1"></i>Confirmar horario</button>
+      <button class="btn btn-success" onclick="tryConfirm()"><i class="bi bi-check2-circle me-1"></i>Confirmar horario</button>
       <button class="btn btn-outline-secondary" onclick="goTo('dashboard')">Volver</button>
     </div>
   </div>
@@ -356,10 +252,8 @@
       <i class="bi bi-check-circle-fill fs-5"></i>
       <span><strong>Reunión confirmada.</strong> Todos fueron notificados.</span>
     </div>
-    <h4 class="fw-bold mb-1">Revisión de Diseño UI</h4>
-    <p class="text-muted small mb-1">Organiza: Sarah Moreno León</p>
-    <p class="text-success fw-bold"><i class="bi bi-calendar-event me-1"></i>Lunes 10 Feb 2026, 11:00 AM</p>
-    <p class="small text-muted">Participantes: Ana García, Carlos Ruiz, Jimena Corona, Emiliano del Toro</p>
+    <h4 class="fw-bold mb-1" id="confirmed-title"></h4>
+    <p class="text-success fw-bold"><i class="bi bi-calendar-event me-1"></i><span id="confirmed-date"></span></p>
   </div>
 </div>
 
@@ -368,32 +262,12 @@
 <div class="view" id="view-detail-part">
   <div class="container py-4" style="max-width:620px">
     <button class="btn btn-link text-muted ps-0 mb-3 text-decoration-none" onclick="goTo('dashboard-part')"><i class="bi bi-arrow-left me-1"></i>Mis invitaciones</button>
-    <h4 class="fw-bold mb-1">Reunión de Proyecto Final</h4>
-    <p class="text-muted small mb-3">Organizada por <strong>Sarah Moreno León</strong></p>
-
+    <h4 class="fw-bold mb-1" id="detail-part-title"></h4>
+    <p class="text-muted small mb-3" id="detail-part-org"></p>
     <div class="alert alert-warning small py-2 mb-4">
       <i class="bi bi-info-circle me-1"></i>Marca los horarios en los que <strong>puedes asistir</strong>.
     </div>
-
-    <div class="avail-row checked" id="r1" onclick="toggleAvail('r1')">
-      <div class="check-circle"><i class="bi bi-check"></i></div>
-      <div>
-        <div class="fw-semibold small">Sábado, 15 Feb 2026 · 09:00 AM</div>
-      </div>
-    </div>
-    <div class="avail-row checked" id="r2" onclick="toggleAvail('r2')">
-      <div class="check-circle"><i class="bi bi-check"></i></div>
-      <div>
-        <div class="fw-semibold small">Sábado, 15 Feb 2026 · 02:00 PM</div>
-      </div>
-    </div>
-    <div class="avail-row" id="r3" onclick="toggleAvail('r3')">
-      <div class="check-circle"></div>
-      <div>
-        <div class="fw-semibold small">Domingo, 16 Feb 2026 · 10:30 AM</div>
-      </div>
-    </div>
-
+    <div id="avail-list"></div>
     <button class="btn btn-success mt-3" onclick="submitAvail()"><i class="bi bi-send me-1"></i>Enviar disponibilidad</button>
   </div>
 </div>
@@ -407,9 +281,8 @@
       <i class="bi bi-calendar-check-fill fs-5"></i>
       <span><strong>¡Reunión confirmada!</strong></span>
     </div>
-    <h4 class="fw-bold mb-1">Revisión de Diseño UI</h4>
-    <p class="text-muted small mb-2">Organizada por <strong>Sarah Moreno León</strong></p>
-    <p class="text-success fw-bold fs-6"><i class="bi bi-calendar-event me-1"></i>Lunes 10 Feb 2026, 11:00 AM</p>
+    <h4 class="fw-bold mb-1" id="part-confirmed-title"></h4>
+    <p class="text-success fw-bold fs-6"><i class="bi bi-calendar-event me-1"></i><span id="part-confirmed-date"></span></p>
     <div class="alert alert-secondary small mb-0">
       <i class="bi bi-lock me-1"></i>La encuesta está cerrada.
     </div>
@@ -424,42 +297,12 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div>
         <h4 class="fw-bold mb-0">Notificaciones</h4>
-        <p class="text-muted small mb-0" id="notif-count-text">3 sin leer</p>
+        <p class="text-muted small mb-0" id="notif-count-text">0 sin leer</p>
       </div>
       <button class="btn btn-sm btn-outline-secondary" onclick="markAllRead()">Marcar todas como leídas</button>
     </div>
-
-    <div class="notif-item unread" onclick="goTo('detail-part')">
-      <div class="d-flex gap-3 align-items-start">
-        <i class="bi bi-envelope-open text-success fs-5 mt-1"></i>
-        <div>
-          <div class="fw-semibold small">Nueva invitación</div>
-          <div class="text-muted small">Fuiste invitado a <strong>Reunión de Proyecto Final</strong> por Sarah Moreno.</div>
-          <div class="text-muted" style="font-size:12px">Hace 2 horas</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="notif-item unread" onclick="goTo('detail-part-confirmed')">
-      <div class="d-flex gap-3 align-items-start">
-        <i class="bi bi-check-circle text-success fs-5 mt-1"></i>
-        <div>
-          <div class="fw-semibold small">Reunión confirmada</div>
-          <div class="text-muted small"><strong>Revisión de Diseño UI</strong> — Lunes 10 Feb, 11:00 AM.</div>
-          <div class="text-muted" style="font-size:12px">Hace 1 día</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="notif-item unread">
-      <div class="d-flex gap-3 align-items-start">
-        <i class="bi bi-x-circle text-danger fs-5 mt-1"></i>
-        <div>
-          <div class="fw-semibold small">Reunión cancelada</div>
-          <div class="text-muted small"><strong>Sync semanal equipo</strong> fue cancelada.</div>
-          <div class="text-muted" style="font-size:12px">Hace 3 días</div>
-        </div>
-      </div>
+    <div id="notif-list">
+      <div class="text-muted small">Cargando notificaciones...</div>
     </div>
   </div>
 </div>
@@ -469,7 +312,7 @@
 <div class="modal-overlay" id="modal-cancel" onclick="closeModal('cancel')">
   <div class="card p-4" style="max-width:400px;width:90%" onclick="event.stopPropagation()">
     <h5 class="fw-bold mb-2"><i class="bi bi-exclamation-triangle text-danger me-2"></i>Cancelar reunión</h5>
-    <p class="text-muted small mb-4">¿Seguro que quieres cancelar <strong>Reunión de Proyecto Final</strong>? Se notificará a todos.</p>
+    <p class="text-muted small mb-4">¿Seguro que quieres cancelar esta reunión? Se notificará a todos los participantes.</p>
     <div class="d-flex justify-content-end gap-2">
       <button class="btn btn-outline-secondary btn-sm" onclick="closeModal('cancel')">No, regresar</button>
       <button class="btn btn-danger btn-sm" onclick="confirmCancel()">Sí, cancelar</button>
@@ -480,7 +323,8 @@
 <div class="modal-overlay" id="modal-confirm" onclick="closeModal('confirm')">
   <div class="card p-4" style="max-width:400px;width:90%" onclick="event.stopPropagation()">
     <h5 class="fw-bold mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Confirmar reunión</h5>
-    <p class="text-muted small mb-4">Se confirmará para el <strong>Sáb 15 Feb, 14:00</strong>. Todos recibirán una notificación.</p>
+    <p class="text-muted small mb-1">Se confirmará la reunión para:</p>
+    <p class="fw-semibold small mb-4" id="modal-confirm-date"></p>
     <div class="d-flex justify-content-end gap-2">
       <button class="btn btn-outline-secondary btn-sm" onclick="closeModal('confirm')">Cancelar</button>
       <button class="btn btn-success btn-sm" onclick="confirmMeeting()">Confirmar</button>
@@ -491,211 +335,638 @@
 <div class="toast-box" id="toastBox"></div>
 
 <script>
-  let currentUser = null;
-  let lastDashboard = 'dashboard';
-  let userName = '';
+const API = 'http://localhost:3000/api';
 
-  function goTo(view) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    const el = document.getElementById('view-' + view);
-    if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+let token = localStorage.getItem('sm_token') || null;
+let currentUser = null;
+let lastDashboard = 'dashboard';
+let currentMeetingId = null;
+let selectedOpcionId = null;
+let pendingSlots = [];
+
+// ── utilidades ────────────────────────────────────────────────────────────
+
+async function apiFetch(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const res = await fetch(API + path, { ...opts, headers: { ...headers, ...(opts.headers || {}) } });
+  const json = await res.json();
+  if (!res.ok) throw { status: res.status, message: json.error || 'Error desconocido' };
+  return json.data;
+}
+
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str ?? '');
+  return d.innerHTML;
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' });
+}
+
+function badgeFor(estado) {
+  return { pendiente: 'bg-warning text-dark', confirmada: 'bg-success', cancelada: 'bg-secondary' }[estado] || 'bg-secondary';
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function markInvalid(el, msg) {
+  el.classList.add('is-invalid');
+  el.classList.remove('is-valid');
+  const fb = el.parentElement.querySelector('.invalid-feedback');
+  if (fb && msg) fb.textContent = msg;
+}
+
+function markValid(el) {
+  el.classList.remove('is-invalid');
+  el.classList.add('is-valid');
+}
+
+function clearField(el) {
+  el.classList.remove('is-invalid', 'is-valid');
+}
+
+function showToast(msg, type = 'success') {
+  const box = document.getElementById('toastBox');
+  const div = document.createElement('div');
+  div.className = `toast show align-items-center text-bg-${type} border-0 mb-2`;
+  const body = document.createElement('div');
+  body.className = 'd-flex';
+  const text = document.createElement('div');
+  text.className = 'toast-body small';
+  text.textContent = msg;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn-close btn-close-white me-2 m-auto';
+  btn.onclick = () => div.remove();
+  body.append(text, btn);
+  div.appendChild(body);
+  box.appendChild(div);
+  setTimeout(() => { if (div.parentNode) div.remove(); }, 3500);
+}
+
+// ── navegación ────────────────────────────────────────────────────────────
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('view-' + name);
+  if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+  updateNav();
+}
+
+async function goTo(name) {
+  showView(name);
+  if (name === 'dashboard') await loadDashboard();
+  else if (name === 'dashboard-part') await loadDashboardPart();
+  else if (name === 'notifications') await loadNotifications();
+  else if (name === 'create-meeting') resetCreateMeeting();
+}
+
+function goBack() { goTo(lastDashboard); }
+
+function updateNav() {
+  document.getElementById('nav-guest').classList.toggle('d-none', !!currentUser);
+  document.getElementById('nav-auth').classList.toggle('d-none', !currentUser);
+  if (currentUser) {
+    const parts = currentUser.nombre.split(' ');
+    document.getElementById('nav-username').textContent = parts[0] + (parts[1] ? ' ' + parts[1][0] + '.' : '');
+  }
+}
+
+function updateGreetings() {
+  if (!currentUser) return;
+  const name = currentUser.nombre.split(' ')[0];
+  document.getElementById('greeting-org').textContent = `Hola, ${name} 👋`;
+  document.getElementById('greeting-part').textContent = `Hola, ${name} 👋`;
+}
+
+// ── auth ──────────────────────────────────────────────────────────────────
+
+async function register() {
+  const nameEl  = document.getElementById('reg-name');
+  const emailEl = document.getElementById('reg-email');
+  const passEl  = document.getElementById('reg-password');
+  let valid = true;
+
+  [nameEl, emailEl, passEl].forEach(clearField);
+  if (!nameEl.value.trim())              { markInvalid(nameEl, 'El nombre completo es requerido.'); valid = false; } else markValid(nameEl);
+  if (!validateEmail(emailEl.value.trim())) { markInvalid(emailEl, 'Ingresa un correo electrónico válido.'); valid = false; } else markValid(emailEl);
+  if (passEl.value.length < 8)          { markInvalid(passEl, 'La contraseña debe tener al menos 8 caracteres.'); valid = false; } else markValid(passEl);
+  if (!valid) return;
+
+  try {
+    await apiFetch('/auth/registro', {
+      method: 'POST',
+      body: JSON.stringify({ nombre: nameEl.value.trim(), email: emailEl.value.trim(), password: passEl.value }),
+    });
+    showToast('¡Cuenta creada! Ahora inicia sesión.', 'success');
+    nameEl.value = ''; emailEl.value = ''; passEl.value = '';
+    [nameEl, emailEl, passEl].forEach(clearField);
+    showView('login');
+  } catch (e) {
+    showToast(e.message, 'danger');
+  }
+}
+
+async function login() {
+  const emailEl = document.getElementById('login-email');
+  const passEl  = document.getElementById('login-password');
+  let valid = true;
+
+  [emailEl, passEl].forEach(clearField);
+  if (!validateEmail(emailEl.value.trim())) { markInvalid(emailEl, 'Ingresa un correo válido.'); valid = false; }
+  if (!passEl.value)                         { markInvalid(passEl, 'La contraseña es requerida.'); valid = false; }
+  if (!valid) return;
+
+  try {
+    const data = await apiFetch('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email: emailEl.value.trim(), password: passEl.value }),
+    });
+    token = data.token;
+    currentUser = data.usuario;
+    localStorage.setItem('sm_token', token);
+    localStorage.setItem('sm_user', JSON.stringify(currentUser));
+    passEl.value = '';
     updateNav();
-  }
-
-  function goBack() { goTo(lastDashboard); }
-
-  function updateNav() {
-    document.getElementById('nav-guest').classList.toggle('d-none', !!currentUser);
-    document.getElementById('nav-auth').classList.toggle('d-none', !currentUser);
-  }
-
-  function selectRole(r) {
-    document.getElementById('rc-org').classList.toggle('selected', r === 'org');
-    document.getElementById('rc-part').classList.toggle('selected', r === 'part');
-    document.querySelector('#rc-org i').className = r === 'org'
-      ? 'bi bi-person-gear fs-4 d-block mb-1 text-success'
-      : 'bi bi-person-gear fs-4 d-block mb-1 text-muted';
-    document.querySelector('#rc-part i').className = r === 'part'
-      ? 'bi bi-people fs-4 d-block mb-1 text-success'
-      : 'bi bi-people fs-4 d-block mb-1 text-muted';
-  }
-
-  function setUser(role, name, short) {
-    currentUser = role;
-    userName = name;
-    document.getElementById('nav-username').textContent = short;
-    document.getElementById('greeting-org').textContent = `Hola, ${name} 👋`;
-    document.getElementById('greeting-part').textContent = `Hola, ${name} 👋`;
-  }
-
-  function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  function markInvalid(el, msg) {
-    el.classList.add('is-invalid');
-    el.classList.remove('is-valid');
-    const fb = el.parentElement.querySelector('.invalid-feedback');
-    if (fb && msg) fb.textContent = msg;
-  }
-
-  function markValid(el) {
-    el.classList.remove('is-invalid');
-    el.classList.add('is-valid');
-  }
-
-  function clearField(el) {
-    el.classList.remove('is-invalid', 'is-valid');
-  }
-
-  function register() {
-    const name  = document.getElementById('reg-name');
-    const email = document.getElementById('reg-email');
-    const pass  = document.getElementById('reg-password');
-    let ok = true;
-
-    [name, email, pass].forEach(clearField);
-
-    if (!name.value.trim()) {
-      markInvalid(name, 'El nombre completo es requerido.'); ok = false;
-    } else { markValid(name); }
-
-    if (!validateEmail(email.value.trim())) {
-      markInvalid(email, 'Ingresa un correo electrónico válido.'); ok = false;
-    } else { markValid(email); }
-
-    if (pass.value.length < 8) {
-      markInvalid(pass, 'La contraseña debe tener al menos 8 caracteres.'); ok = false;
-    } else { markValid(pass); }
-
-    if (!ok) return;
-
-    const parts = name.value.trim().split(' ');
-    const short = parts[0] + (parts[1] ? ' ' + parts[1][0] + '.' : '');
-    setUser('org', parts[0], short);
-    lastDashboard = 'dashboard';
-    showToast('¡Cuenta creada! Bienvenida.', 'success');
-    goTo('dashboard');
-  }
-
-  function loginAs(role) {
-    if (role === 'org') {
-      setUser('org', 'Sarah', 'Sarah M.');
-      lastDashboard = 'dashboard';
-      goTo('dashboard');
-    } else {
-      setUser('part', 'Emiliano', 'Emiliano T.');
-      lastDashboard = 'dashboard-part';
-      goTo('dashboard-part');
-    }
+    updateGreetings();
+    await goToDashboardInitial();
     showToast('Sesión iniciada.', 'success');
+  } catch (e) {
+    showToast(e.message, 'danger');
   }
+}
 
-  function logout() {
-    currentUser = null;
-    updateNav();
-    showToast('Sesión cerrada.', 'secondary');
-    goTo('landing');
-  }
+async function logout() {
+  try { await apiFetch('/auth/logout', { method: 'POST' }); } catch {}
+  token = null;
+  currentUser = null;
+  localStorage.removeItem('sm_token');
+  localStorage.removeItem('sm_user');
+  updateNav();
+  showToast('Sesión cerrada.', 'secondary');
+  showView('landing');
+}
 
-  let slotCount = 2;
-  function addSlot() {
-    slotCount++;
-    const extras = ['Lunes 17 Feb · 09:00 AM', 'Martes 18 Feb · 03:00 PM', 'Miércoles 19 Feb · 11:00 AM'];
-    const date = extras[(slotCount - 3) % extras.length];
-    const div = document.createElement('div');
-    div.className = 'd-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small';
-    div.innerHTML = `<i class="bi bi-clock text-muted"></i><span class="flex-grow-1">${date}</span><button class="btn btn-sm btn-link text-danger p-0" onclick="this.closest('.d-flex').remove()"><i class="bi bi-x-lg"></i></button>`;
-    document.getElementById('slotsContainer').appendChild(div);
-    showToast('Horario añadido.', 'success');
-  }
+// ── dashboard ─────────────────────────────────────────────────────────────
 
-  function addParticipant() {
-    const input = document.getElementById('emailInput');
-    const email = input.value.trim();
-    clearField(input);
-
-    if (!email) {
-      markInvalid(input, 'Escribe un correo antes de añadir.'); return;
+async function goToDashboardInitial() {
+  try {
+    const reuniones = await apiFetch('/reuniones');
+    const tieneOrganizadas = reuniones.some(r => r.miRol === 'organizador');
+    lastDashboard = tieneOrganizadas ? 'dashboard' : 'dashboard-part';
+    if (tieneOrganizadas) {
+      renderDashboardOrg(reuniones.filter(r => r.miRol === 'organizador'));
+      showView('dashboard');
+    } else {
+      renderDashboardPart(reuniones.filter(r => r.miRol === 'participante'));
+      showView('dashboard-part');
     }
-    if (!validateEmail(email)) {
-      markInvalid(input, 'Ingresa un correo electrónico válido.'); return;
+    updateGreetings();
+  } catch (e) {
+    showToast(e.message, 'danger');
+  }
+}
+
+async function loadDashboard() {
+  if (!currentUser) return;
+  try {
+    const reuniones = await apiFetch('/reuniones');
+    renderDashboardOrg(reuniones.filter(r => r.miRol === 'organizador'));
+    updateGreetings();
+    lastDashboard = 'dashboard';
+  } catch (e) { showToast(e.message, 'danger'); }
+}
+
+async function loadDashboardPart() {
+  if (!currentUser) return;
+  try {
+    const reuniones = await apiFetch('/reuniones');
+    renderDashboardPart(reuniones.filter(r => r.miRol === 'participante'));
+    updateGreetings();
+    lastDashboard = 'dashboard-part';
+  } catch (e) { showToast(e.message, 'danger'); }
+}
+
+function renderDashboardOrg(reuniones) {
+  const list = document.getElementById('meetings-list');
+  if (!reuniones.length) {
+    list.innerHTML = '<p class="text-muted small">Aún no tienes reuniones. ¡Crea una!</p>';
+    return;
+  }
+  list.innerHTML = reuniones.map(r => `
+    <div class="meeting-row" onclick="openMeetingOrg('${r._id}')">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold small">${escHtml(r.titulo)}</div>
+          <div class="text-muted" style="font-size:13px">${r.estado === 'confirmada' ? 'Confirmada · ' + escHtml(r.opcionConfirmadaId ? 'Ver detalle' : '') : r.estado === 'cancelada' ? 'Cancelada' : 'Pendiente de respuestas'}</div>
+        </div>
+        <span class="badge ${badgeFor(r.estado)}">${r.estado.charAt(0).toUpperCase() + r.estado.slice(1)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDashboardPart(reuniones) {
+  const list = document.getElementById('meetings-list-part');
+  if (!reuniones.length) {
+    list.innerHTML = '<p class="text-muted small">No tienes invitaciones aún.</p>';
+    return;
+  }
+  list.innerHTML = reuniones.map(r => `
+    <div class="meeting-row" onclick="openMeetingPart('${r._id}')">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold small">${escHtml(r.titulo)}</div>
+          <div class="text-muted" style="font-size:13px">${r.estado === 'confirmada' ? 'Confirmada' : r.estado === 'cancelada' ? 'Cancelada' : 'Pendiente tu respuesta'}</div>
+        </div>
+        <span class="badge ${badgeFor(r.estado)}">${r.estado.charAt(0).toUpperCase() + r.estado.slice(1)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── detalle organizador ───────────────────────────────────────────────────
+
+async function openMeetingOrg(reunionId) {
+  currentMeetingId = reunionId;
+  try {
+    const [reunion, opciones] = await Promise.all([
+      apiFetch(`/reuniones/${reunionId}`),
+      apiFetch(`/reuniones/${reunionId}/opciones`),
+    ]);
+
+    if (reunion.estado === 'confirmada') {
+      document.getElementById('confirmed-title').textContent = reunion.titulo;
+      const opConf = opciones.find(o => o._id === reunion.opcionConfirmadaId || String(o._id) === String(reunion.opcionConfirmadaId));
+      document.getElementById('confirmed-date').textContent = opConf ? formatDate(opConf.fechaHora) : '';
+      showView('detail-confirmed');
+      return;
+    }
+    if (reunion.estado === 'cancelada') {
+      showToast('Esta reunión está cancelada.', 'secondary');
+      return;
     }
 
-    const span = document.createElement('span');
-    span.className = 'chip';
-    span.innerHTML = `${email}<span class="rm" onclick="this.parentElement.remove()"> ×</span>`;
-    document.getElementById('chipsContainer').appendChild(span);
-    input.value = '';
-    clearField(input);
-    showToast(email + ' añadido.', 'success');
+    const coincidencias = await apiFetch(`/reuniones/${reunionId}/disponibilidades/coincidencias`);
+    renderDetailOrg(reunion, opciones, coincidencias);
+    showView('detail-org');
+  } catch (e) { showToast(e.message, 'danger'); }
+}
+
+function renderDetailOrg(reunion, opciones, coincidencias) {
+  document.getElementById('detail-org-title').textContent = reunion.titulo;
+
+  const countMap = {};
+  const maxCount = coincidencias.length > 0 ? coincidencias[0].cantidad : 0;
+  for (const c of coincidencias) countMap[String(c.opcion._id)] = c.cantidad;
+
+  const list = document.getElementById('slots-list-org');
+  if (!opciones.length) {
+    list.innerHTML = '<p class="text-muted small">No hay opciones de horario.</p>';
+    return;
   }
 
-  function createMeeting() {
-    const title = document.getElementById('meeting-title');
-    clearField(title);
+  list.innerHTML = opciones.map(op => {
+    const count = countMap[String(op._id)] || 0;
+    const pct = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
+    const isBest = coincidencias.length > 0 && String(coincidencias[0].opcion._id) === String(op._id);
+    return `
+      <div class="slot-option${isBest ? ' best' : ''}" id="slot-${op._id}" onclick="selectSlot('${op._id}', '${escHtml(formatDate(op.fechaHora))}')">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="small fw-semibold">${escHtml(formatDate(op.fechaHora))}${isBest ? ' <span class="badge bg-success ms-1">Mejor opción</span>' : ''}</span>
+          <span class="${count > 0 ? 'text-success' : 'text-muted'} small fw-bold">${count} disponible${count !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="slot-bar"><div class="slot-bar-fill" style="width:${pct}%${!isBest ? ';background:#adb5bd' : ''}"></div></div>
+      </div>
+    `;
+  }).join('');
+}
 
-    if (!title.value.trim()) {
-      markInvalid(title, 'El título de la reunión es requerido.'); return;
+// ── detalle participante ──────────────────────────────────────────────────
+
+async function openMeetingPart(reunionId) {
+  currentMeetingId = reunionId;
+  try {
+    const [reunion, opciones, disponibilidades] = await Promise.all([
+      apiFetch(`/reuniones/${reunionId}`),
+      apiFetch(`/reuniones/${reunionId}/opciones`),
+      apiFetch(`/reuniones/${reunionId}/disponibilidades`),
+    ]);
+
+    if (reunion.estado === 'confirmada') {
+      document.getElementById('part-confirmed-title').textContent = reunion.titulo;
+      const opConf = opciones.find(o => String(o._id) === String(reunion.opcionConfirmadaId));
+      document.getElementById('part-confirmed-date').textContent = opConf ? formatDate(opConf.fechaHora) : '';
+      showView('detail-part-confirmed');
+      return;
     }
-    markValid(title);
 
-    if (document.getElementById('slotsContainer').children.length === 0) {
-      showToast('Agrega al menos un horario.', 'danger'); return;
+    document.getElementById('detail-part-title').textContent = reunion.titulo;
+    document.getElementById('detail-part-org').textContent = reunion.estado === 'cancelada' ? 'Reunión cancelada' : '';
+
+    const myId = currentUser._id;
+    const myDisp = {};
+    for (const d of disponibilidades) {
+      const pid = d.participanteId?._id || d.participanteId;
+      if (String(pid) === String(myId)) {
+        myDisp[String(d.opcionHorarioId?._id || d.opcionHorarioId)] = d;
+      }
+    }
+
+    const list = document.getElementById('avail-list');
+    list.innerHTML = opciones.map(op => {
+      const disp = myDisp[String(op._id)];
+      const checked = disp ? disp.disponible : false;
+      return `
+        <div class="avail-row${checked ? ' checked' : ''}"
+             id="avail-${op._id}"
+             data-opcion="${op._id}"
+             data-disp="${disp ? disp._id : ''}"
+             onclick="toggleAvail('avail-${op._id}')">
+          <div class="check-circle">${checked ? '<i class="bi bi-check"></i>' : ''}</div>
+          <div><div class="fw-semibold small">${escHtml(formatDate(op.fechaHora))}</div></div>
+        </div>
+      `;
+    }).join('');
+
+    showView('detail-part');
+  } catch (e) { showToast(e.message, 'danger'); }
+}
+
+// ── crear reunión ─────────────────────────────────────────────────────────
+
+function resetCreateMeeting() {
+  pendingSlots = [];
+  document.getElementById('meeting-title').value = '';
+  document.getElementById('meeting-desc').value = '';
+  document.getElementById('slot-datetime').value = '';
+  document.getElementById('chipsContainer').innerHTML = '';
+  renderPendingSlots();
+  ['meeting-title', 'slot-datetime', 'emailInput'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) clearField(el);
+  });
+}
+
+function addSlot() {
+  const input = document.getElementById('slot-datetime');
+  if (!input.value) { showToast('Selecciona una fecha y hora.', 'danger'); return; }
+  const iso = new Date(input.value).toISOString();
+  if (new Date(iso) <= new Date()) { showToast('La fecha debe ser futura.', 'danger'); return; }
+  if (pendingSlots.includes(iso)) { showToast('Ya agregaste ese horario.', 'warning'); return; }
+  pendingSlots.push(iso);
+  renderPendingSlots();
+  input.value = '';
+  showToast('Horario añadido.', 'success');
+}
+
+function removeSlot(iso) {
+  pendingSlots = pendingSlots.filter(s => s !== iso);
+  renderPendingSlots();
+}
+
+function renderPendingSlots() {
+  const container = document.getElementById('slotsContainer');
+  if (!pendingSlots.length) { container.innerHTML = ''; return; }
+  container.innerHTML = pendingSlots.map(iso => {
+    const safe = iso.replace(/'/g, '');
+    return `
+      <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded border bg-light small">
+        <i class="bi bi-clock text-muted"></i>
+        <span class="flex-grow-1">${escHtml(formatDate(iso))}</span>
+        <button class="btn btn-sm btn-link text-danger p-0" onclick="removeSlot('${safe}')"><i class="bi bi-x-lg"></i></button>
+      </div>
+    `;
+  }).join('');
+}
+
+function addParticipant() {
+  const input = document.getElementById('emailInput');
+  const email = input.value.trim().toLowerCase();
+  clearField(input);
+  if (!email)               { markInvalid(input, 'Escribe un correo antes de añadir.'); return; }
+  if (!validateEmail(email)) { markInvalid(input, 'Ingresa un correo electrónico válido.'); return; }
+
+  const existing = [...document.querySelectorAll('#chipsContainer .chip')].map(c => c.dataset.email);
+  if (existing.includes(email)) { showToast('Ya añadiste ese correo.', 'warning'); return; }
+
+  const span = document.createElement('span');
+  span.className = 'chip';
+  span.dataset.email = email;
+  const txt = document.createTextNode(email);
+  const rm = document.createElement('span');
+  rm.className = 'rm';
+  rm.textContent = ' ×';
+  rm.onclick = () => span.remove();
+  span.append(txt, rm);
+  document.getElementById('chipsContainer').appendChild(span);
+  input.value = '';
+  showToast(email + ' añadido.', 'success');
+}
+
+async function createMeeting() {
+  const titleEl = document.getElementById('meeting-title');
+  const descEl  = document.getElementById('meeting-desc');
+  clearField(titleEl);
+
+  if (!titleEl.value.trim()) { markInvalid(titleEl, 'El título de la reunión es requerido.'); return; }
+  markValid(titleEl);
+  if (pendingSlots.length === 0) { showToast('Agrega al menos un horario.', 'danger'); return; }
+
+  try {
+    const reunion = await apiFetch('/reuniones', {
+      method: 'POST',
+      body: JSON.stringify({ titulo: titleEl.value.trim(), descripcion: descEl.value.trim() }),
+    });
+
+    for (const fechaHora of pendingSlots) {
+      await apiFetch(`/reuniones/${reunion._id}/opciones`, {
+        method: 'POST',
+        body: JSON.stringify({ fechaHora }),
+      });
+    }
+
+    const chips = document.querySelectorAll('#chipsContainer .chip');
+    for (const chip of chips) {
+      try {
+        await apiFetch(`/reuniones/${reunion._id}/participantes`, {
+          method: 'POST',
+          body: JSON.stringify({ email: chip.dataset.email }),
+        });
+      } catch (e) {
+        showToast(`No se pudo agregar ${chip.dataset.email}: ${e.message}`, 'warning');
+      }
     }
 
     showToast('Reunión creada. Invitaciones enviadas.', 'success');
     setTimeout(() => goTo('dashboard'), 500);
-  }
+  } catch (e) { showToast(e.message, 'danger'); }
+}
 
-  function selectSlot(id) {
-    ['s1','s2','s3'].forEach(s => document.getElementById(s).classList.remove('selected'));
-    document.getElementById(id).classList.add('selected');
-  }
+// ── disponibilidad ────────────────────────────────────────────────────────
 
-  function toggleAvail(id) {
-    const row = document.getElementById(id);
-    row.classList.toggle('checked');
-    row.querySelector('.check-circle').innerHTML = row.classList.contains('checked') ? '<i class="bi bi-check"></i>' : '';
-  }
+function toggleAvail(rowId) {
+  const row = document.getElementById(rowId);
+  row.classList.toggle('checked');
+  row.querySelector('.check-circle').innerHTML = row.classList.contains('checked') ? '<i class="bi bi-check"></i>' : '';
+}
 
-  function submitAvail() {
+async function submitAvail() {
+  const rows = document.querySelectorAll('#avail-list .avail-row');
+  try {
+    for (const row of rows) {
+      const opcionId = row.dataset.opcion;
+      const disponible = row.classList.contains('checked');
+      const dispId = row.dataset.disp;
+
+      if (dispId) {
+        await apiFetch(`/reuniones/${currentMeetingId}/disponibilidades/${dispId}`, {
+          method: 'PUT',
+          body: JSON.stringify({ disponible }),
+        });
+      } else {
+        const disp = await apiFetch(`/reuniones/${currentMeetingId}/disponibilidades`, {
+          method: 'POST',
+          body: JSON.stringify({ opcionHorarioId: opcionId, disponible }),
+        });
+        row.dataset.disp = disp._id;
+      }
+    }
     showToast('Disponibilidad enviada.', 'success');
-    setTimeout(() => goTo('dashboard-part'), 500);
-  }
+    setTimeout(() => goTo(lastDashboard), 500);
+  } catch (e) { showToast(e.message, 'danger'); }
+}
 
-  function openModal(id) { document.getElementById('modal-' + id).classList.add('open'); }
-  function closeModal(id) { document.getElementById('modal-' + id).classList.remove('open'); }
+// ── confirmar / cancelar reunión ──────────────────────────────────────────
 
-  function confirmCancel() {
-    closeModal('cancel');
+function selectSlot(opcionId, fechaLabel) {
+  document.querySelectorAll('.slot-option').forEach(s => s.classList.remove('selected'));
+  const el = document.getElementById('slot-' + opcionId);
+  if (el) el.classList.add('selected');
+  selectedOpcionId = opcionId;
+}
+
+function tryConfirm() {
+  if (!selectedOpcionId) { showToast('Selecciona un horario primero.', 'warning'); return; }
+  const el = document.getElementById('slot-' + selectedOpcionId);
+  const label = el ? el.querySelector('.fw-semibold')?.textContent?.trim() : '';
+  document.getElementById('modal-confirm-date').textContent = label;
+  openModal('confirm');
+}
+
+function openModal(id)  { document.getElementById('modal-' + id).classList.add('open'); }
+function closeModal(id) { document.getElementById('modal-' + id).classList.remove('open'); }
+
+async function confirmCancel() {
+  closeModal('cancel');
+  try {
+    await apiFetch(`/reuniones/${currentMeetingId}/cancelar`, { method: 'POST' });
     showToast('Reunión cancelada.', 'danger');
     setTimeout(() => goTo('dashboard'), 600);
-  }
+  } catch (e) { showToast(e.message, 'danger'); }
+}
 
-  function confirmMeeting() {
-    closeModal('confirm');
+async function confirmMeeting() {
+  closeModal('confirm');
+  try {
+    await apiFetch(`/reuniones/${currentMeetingId}/confirmar`, {
+      method: 'POST',
+      body: JSON.stringify({ opcionId: selectedOpcionId }),
+    });
     showToast('¡Reunión confirmada!', 'success');
-    setTimeout(() => goTo('detail-confirmed'), 600);
-  }
+    await openMeetingOrg(currentMeetingId);
+  } catch (e) { showToast(e.message, 'danger'); }
+}
 
-  function markAllRead() {
-    document.querySelectorAll('.notif-item.unread').forEach(n => n.classList.remove('unread'));
-    document.getElementById('notif-badge').classList.add('d-none');
-    document.getElementById('notif-count-text').textContent = '0 sin leer';
+// ── notificaciones ────────────────────────────────────────────────────────
+
+const iconoNotif = {
+  invitacion:   'bi-envelope-open text-success',
+  confirmacion: 'bi-check-circle text-success',
+  cancelacion:  'bi-x-circle text-danger',
+  recordatorio: 'bi-alarm text-warning',
+};
+
+async function loadNotifications() {
+  if (!currentUser) return;
+  try {
+    const notifs = await apiFetch('/notificaciones');
+    const unread = notifs.filter(n => !n.leida).length;
+    const badge = document.getElementById('notif-badge');
+    badge.textContent = unread;
+    badge.classList.toggle('d-none', unread === 0);
+    document.getElementById('notif-count-text').textContent = `${unread} sin leer`;
+
+    const list = document.getElementById('notif-list');
+    if (!notifs.length) {
+      list.innerHTML = '<p class="text-muted small">No tienes notificaciones.</p>';
+      return;
+    }
+    list.innerHTML = notifs.map(n => `
+      <div class="notif-item${n.leida ? '' : ' unread'}" data-id="${n._id}" onclick="markRead(this)">
+        <div class="d-flex gap-3 align-items-start">
+          <i class="bi ${iconoNotif[n.tipo] || 'bi-bell'} fs-5 mt-1"></i>
+          <div>
+            <div class="fw-semibold small">${escHtml(n.tipo.charAt(0).toUpperCase() + n.tipo.slice(1))}</div>
+            <div class="text-muted small">${escHtml(n.mensaje)}</div>
+            <div class="text-muted" style="font-size:12px">${formatDate(n.createdAt)}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) { showToast(e.message, 'danger'); }
+}
+
+async function markRead(el) {
+  if (!el.classList.contains('unread')) return;
+  const id = el.dataset.id;
+  try {
+    await apiFetch(`/notificaciones/${id}/leida`, { method: 'PUT' });
+    el.classList.remove('unread');
+    await loadNotifications();
+  } catch {}
+}
+
+async function markAllRead() {
+  try {
+    const notifs = await apiFetch('/notificaciones');
+    await Promise.all(notifs.filter(n => !n.leida).map(n =>
+      apiFetch(`/notificaciones/${n._id}/leida`, { method: 'PUT' })
+    ));
+    await loadNotifications();
     showToast('Listo.', 'secondary');
-  }
+  } catch (e) { showToast(e.message, 'danger'); }
+}
 
-  function showToast(msg, type = 'success') {
-    const box = document.getElementById('toastBox');
-    const div = document.createElement('div');
-    div.className = `toast show align-items-center text-bg-${type} border-0 mb-2`;
-    div.innerHTML = `<div class="d-flex"><div class="toast-body small">${msg}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="this.closest('.toast').remove()"></button></div>`;
-    box.appendChild(div);
-    setTimeout(() => { if (div.parentNode) div.remove(); }, 3000);
-  }
+// ── inicio ────────────────────────────────────────────────────────────────
 
-  updateNav();
+(async function init() {
+  if (token) {
+    try {
+      currentUser = await apiFetch('/auth/perfil');
+      localStorage.setItem('sm_user', JSON.stringify(currentUser));
+      updateNav();
+      updateGreetings();
+      await goToDashboardInitial();
+      await loadNotifications();
+    } catch {
+      token = null;
+      currentUser = null;
+      localStorage.removeItem('sm_token');
+      localStorage.removeItem('sm_user');
+      updateNav();
+      showView('landing');
+    }
+  } else {
+    updateNav();
+    showView('landing');
+  }
+})();
 </script>
 </body>
 </html>

@@ -1,9 +1,22 @@
-const { ok } = require('../utils/respuesta');
+const OpcionHorario = require('../models/OpcionHorario');
+const Disponibilidad = require('../models/Disponibilidad');
+const { ok, err } = require('../utils/respuesta');
+const { esFechaFutura } = require('../utils/validaciones');
 
 const agregarOpcion = async (req, res, next) => {
   try {
-    // TODO [Emiliano]: agregar opción de horario a una reunión
-    res.status(201).json(ok({}));
+    const { fechaHora } = req.body;
+    const { reunionId } = req.params;
+
+    if (!fechaHora) {
+      return res.status(400).json(err('fechaHora es obligatoria', 'VALIDATION_ERROR'));
+    }
+    if (!esFechaFutura(fechaHora)) {
+      return res.status(400).json(err('La fecha debe ser futura', 'VALIDATION_ERROR'));
+    }
+
+    const opcion = await OpcionHorario.create({ reunionId, fechaHora });
+    res.status(201).json(ok(opcion));
   } catch (error) {
     next(error);
   }
@@ -11,8 +24,9 @@ const agregarOpcion = async (req, res, next) => {
 
 const listarOpciones = async (req, res, next) => {
   try {
-    // TODO [Emiliano]: listar opciones de horario de una reunión
-    res.json(ok([]));
+    const opciones = await OpcionHorario.find({ reunionId: req.params.reunionId })
+      .sort({ fechaHora: 1 });
+    res.json(ok(opciones));
   } catch (error) {
     next(error);
   }
@@ -20,7 +34,15 @@ const listarOpciones = async (req, res, next) => {
 
 const eliminarOpcion = async (req, res, next) => {
   try {
-    // TODO [Emiliano]: eliminar opción de horario
+    const { reunionId, opcionId } = req.params;
+
+    const opcion = await OpcionHorario.findOne({ _id: opcionId, reunionId });
+    if (!opcion) {
+      return res.status(404).json(err('Opción no encontrada', 'NOT_FOUND'));
+    }
+
+    await Disponibilidad.deleteMany({ opcionHorarioId: opcionId });
+    await opcion.deleteOne();
     res.json(ok({ mensaje: 'Opción eliminada' }));
   } catch (error) {
     next(error);

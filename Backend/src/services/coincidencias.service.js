@@ -33,6 +33,7 @@ const calcularCoincidencias = async (reunionId) => {
       opcionHorarioId: opcion._id,
       fechaHora: opcion.fechaHora,
       totalDisponibles: participantesDisponibles.length,
+      totalParticipantes: participantes.length,
       participantes: participantesDisponibles,
       pendienteRespuesta: participantesPendientes,
     };

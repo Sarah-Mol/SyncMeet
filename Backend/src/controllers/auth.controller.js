@@ -82,4 +82,20 @@ const perfil = async (req, res, next) => {
   }
 };
 
-module.exports = { registro, login, logout, perfil };
+const buscarUsuario = async (req, res, next) => {
+  try {
+    const { email } = req.query;
+    if (!email) {
+      return res.status(400).json(err('El parámetro email es obligatorio', 'VALIDATION_ERROR'));
+    }
+    const usuario = await Usuario.findOne({ email: email.toLowerCase() }).select('-password');
+    if (!usuario) {
+      return res.status(404).json(err('Usuario no encontrado', 'NOT_FOUND'));
+    }
+    res.json(ok({ _id: usuario._id, nombre: usuario.nombre, email: usuario.email }));
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { registro, login, logout, perfil, buscarUsuario };

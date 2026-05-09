@@ -3,8 +3,13 @@ const { EMAIL_USER } = require('../config/env');
 const fs = require('fs');
 const path = require('path');
 
+const templateCache = {};
+
 const cargarTemplate = (nombre, variables) => {
-  let html = fs.readFileSync(path.join(__dirname, '../templates', nombre), 'utf-8');
+  if (!templateCache[nombre]) {
+    templateCache[nombre] = fs.readFileSync(path.join(__dirname, '../templates', nombre), 'utf-8');
+  }
+  let html = templateCache[nombre];
   Object.entries(variables).forEach(([key, value]) => {
     html = html.replace(new RegExp(`{{${key}}}`, 'g'), value ?? '');
   });
